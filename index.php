@@ -3,6 +3,7 @@
 	if(!isset($_GET['route'])){
 		$_GET['route'] = "";
 	}
+	session_start();
 	switch (filter($_GET['route'])) {
 		case '':
 			require("view/t_login.php");
@@ -40,8 +41,11 @@
 		case 'register':
 			require("view/t_register.php");
 			break;
+		case 'logout':
+			require("view/logout.php");
+			break;
 		default:
-			echo '<br>'.$_GET['route'];
+			require("view/t_error404.php");
 			break;
 	}
 ?>

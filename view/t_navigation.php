@@ -1,4 +1,7 @@
 <!-- Navigation -->
+<?php
+    require("functions/select_all_function.php");
+?>
 <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
     <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -23,7 +26,7 @@
                 <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                 </li>
                 <li class="divider"></li>
-                <li><a href="index"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                <li><a href="index?route=logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                 </li>
             </ul>
             <!-- /.dropdown-user -->
@@ -43,7 +46,11 @@
                             <!-- <i class="fa fa-search"></i> -->
                         <!-- </button> -->
                     <!-- </span> -->
-					<label>NAME OF TENANT HERE</label>
+                    <?php
+                        $user_profile = user_profile($_SESSION['user_id']);
+                        $user_profile = json_decode($user_profile);
+                    ?>
+					<label><?php echo $user_profile -> {'last_name'}; ?>, <?php echo $user_profile -> {'first_name'}; ?></label>
                     </div>
                     <!-- /input-group -->
                 </li>

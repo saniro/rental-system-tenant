@@ -1,3 +1,8 @@
+<?php
+    if(!isset($_SESSION['user_id'])){
+        header("location:index");
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -52,128 +57,359 @@
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
-                        <div>
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <h4 class="floortitle">First Floor</h4>
-                                        <button class="room leftcorner">Room 01</button>
-                                        <button class="room">Room 02</button>
-                                        <button class="room">Room 03</button>
-                                        <button class="room">Room 04</button>
-                                        <br>
-                                </div>
-                            </div>
+            <div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h4 class="floortitle">First Floor</h4>
+                            <button class="room 
+                                <?php 
+                                    $room_check = room_check(1, $_SESSION['user_id']);
+                                    $room_check = json_decode($room_check);
+                                    //echo "<script>alert('".$room_check."');</script>";
+                                    if($room_check -> {'status'} == 'occupied'){
+                                        if($room_check -> {'who'} == 'mine'){
+                                            echo 'mine';
+                                        }
+                                        else{
+                                            echo 'occupied';
+                                        }
+                                    }
+                                ?>
+                            leftcorner" data-id="1">Room 01</button>
 
-                            <div class="floordivider"><br></div>
+                            <button class="room 
+                                <?php 
+                                    $room_check = room_check(2, $_SESSION['user_id']);
+                                    $room_check = json_decode($room_check);
+                                    //echo "<script>alert('".$room_check."');</script>";
+                                    if($room_check -> {'status'} == 'occupied'){
+                                        if($room_check -> {'who'} == 'mine'){
+                                            echo 'mine';
+                                        }
+                                        else{
+                                            echo 'occupied';
+                                        }
+                                    }
+                                ?>
+                            " data-id="2">Room 02</button>
+                            <button class="room 
+                                <?php 
+                                    $room_check = room_check(3, $_SESSION['user_id']);
+                                    $room_check = json_decode($room_check);
+                                    //echo "<script>alert('".$room_check."');</script>";
+                                    if($room_check -> {'status'} == 'occupied'){
+                                        if($room_check -> {'who'} == 'mine'){
+                                            echo 'mine';
+                                        }
+                                        else{
+                                            echo 'occupied';
+                                        }
+                                    }
+                                ?>
+                            " data-id="3">Room 03</button>
+                            <button class="room 
+                                <?php 
+                                    $room_check = room_check(4, $_SESSION['user_id']);
+                                    $room_check = json_decode($room_check);
+                                    //echo "<script>alert('".$room_check."');</script>";
+                                    if($room_check -> {'status'} == 'occupied'){
+                                        if($room_check -> {'who'} == 'mine'){
+                                            echo 'mine';
+                                        }
+                                        else{
+                                            echo 'occupied';
+                                        }
+                                    }
+                                ?>
+                            " data-id="4">Room 04</button>
+                            <br>
+                    </div>
+                </div>
 
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <h4 class="floortitle">Second Floor</h4>
-                                        <button class="room leftcorner">Room 05</button>
-                                        <button class="room">Room 06</button>
-                                        <button class="room occupied">Room 07</button>
-                                        <button class="room">Room 08</button>
-                                        <br>
-                                </div>
-                            </div>
+                <div class="floordivider"><br></div>
 
-                            <div class="floordivider"><br></div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h4 class="floortitle">Second Floor</h4>
+                            <button class="room 
+                                <?php 
+                                    $room_check = room_check(5, $_SESSION['user_id']);
+                                    $room_check = json_decode($room_check);
+                                    //echo "<script>alert('".$room_check."');</script>";
+                                    if($room_check -> {'status'} == 'occupied'){
+                                        if($room_check -> {'who'} == 'mine'){
+                                            echo 'mine';
+                                        }
+                                        else{
+                                            echo 'occupied';
+                                        }
+                                    }
+                                ?>
+                            leftcorner" data-id="5">Room 05</button>
+                            <button class="room 
+                                <?php 
+                                    $room_check = room_check(6, $_SESSION['user_id']);
+                                    $room_check = json_decode($room_check);
+                                    //echo "<script>alert('".$room_check."');</script>";
+                                    if($room_check -> {'status'} == 'occupied'){
+                                        if($room_check -> {'who'} == 'mine'){
+                                            echo 'mine';
+                                        }
+                                        else{
+                                            echo 'occupied';
+                                        }
+                                    }
+                                ?>
+                            " data-id="6">Room 06</button>
+                            <button class="room 
+                                <?php 
+                                    $room_check = room_check(7, $_SESSION['user_id']);
+                                    $room_check = json_decode($room_check);
+                                    //echo "<script>alert('".$room_check."');</script>";
+                                    if($room_check -> {'status'} == 'occupied'){
+                                        if($room_check -> {'who'} == 'mine'){
+                                            echo 'mine';
+                                        }
+                                        else{
+                                            echo 'occupied';
+                                        }
+                                    }
+                                ?>
+                            " data-id="7">Room 07</button>
+                            <button class="room 
+                                <?php 
+                                    $room_check = room_check(8, $_SESSION['user_id']);
+                                    $room_check = json_decode($room_check);
+                                    //echo "<script>alert('".$room_check."');</script>";
+                                    if($room_check -> {'status'} == 'occupied'){
+                                        if($room_check -> {'who'} == 'mine'){
+                                            echo 'mine';
+                                        }
+                                        else{
+                                            echo 'occupied';
+                                        }
+                                    }
+                                ?>
+                            " data-id="8">Room 08</button>
+                            <br>
+                    </div>
+                </div>
 
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <h4 class="floortitle">Third Floor</h4>
-                                        <button class="room leftcorner occupied">Room 09</button>
-                                        <button class="room">Room 10</button>
-                                        <button class="room">Room 11</button>
-                                        <button class="room">Room 12</button>
-                                        <br>
-                                </div>
-                            </div>
+                <div class="floordivider"><br></div>
 
-                            <div class="floordivider"><br></div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h4 class="floortitle">Third Floor</h4>
+                            <button class="room 
+                                <?php 
+                                    $room_check = room_check(9, $_SESSION['user_id']);
+                                    $room_check = json_decode($room_check);
+                                    //echo "<script>alert('".$room_check."');</script>";
+                                    if($room_check -> {'status'} == 'occupied'){
+                                        if($room_check -> {'who'} == 'mine'){
+                                            echo 'mine';
+                                        }
+                                        else{
+                                            echo 'occupied';
+                                        }
+                                    }
+                                ?>
+                            leftcorner" data-id="9">Room 09</button>
+                            <button class="room 
+                                <?php 
+                                    $room_check = room_check(10, $_SESSION['user_id']);
+                                    $room_check = json_decode($room_check);
+                                    //echo "<script>alert('".$room_check."');</script>";
+                                    if($room_check -> {'status'} == 'occupied'){
+                                        if($room_check -> {'who'} == 'mine'){
+                                            echo 'mine';
+                                        }
+                                        else{
+                                            echo 'occupied';
+                                        }
+                                    }
+                                ?>
+                            " data-id="10">Room 10</button>
+                            <button class="room 
+                                <?php 
+                                    $room_check = room_check(11, $_SESSION['user_id']);
+                                    $room_check = json_decode($room_check);
+                                    //echo "<script>alert('".$room_check."');</script>";
+                                    if($room_check -> {'status'} == 'occupied'){
+                                        if($room_check -> {'who'} == 'mine'){
+                                            echo 'mine';
+                                        }
+                                        else{
+                                            echo 'occupied';
+                                        }
+                                    }
+                                ?>
+                            " data-id="11">Room 11</button>
+                            <button class="room 
+                                <?php 
+                                    $room_check = room_check(12, $_SESSION['user_id']);
+                                    $room_check = json_decode($room_check);
+                                    //echo "<script>alert('".$room_check."');</script>";
+                                    if($room_check -> {'status'} == 'occupied'){
+                                        if($room_check -> {'who'} == 'mine'){
+                                            echo 'mine';
+                                        }
+                                        else{
+                                            echo 'occupied';
+                                        }
+                                    }
+                                ?>
+                            " data-id="12">Room 12</button>
+                            <br>
+                    </div>
+                </div>
 
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <h4 class="floortitle">Fourth Floor</h4>
-                                        <button class="room leftcorner">Room 13</button>
-                                        <button class="room">Room 14</button>
-                                        <button class="room mine">Room 15</button>
-                                        <button class="room">Room 16</button>
-                                        <br>
-                                </div>
-                            </div>
+                <div class="floordivider"><br></div>
 
-                            <div class="floordivider"><br></div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h4 class="floortitle">Fourth Floor</h4>
+                            <button class="room 
+                                <?php 
+                                    $room_check = room_check(13, $_SESSION['user_id']);
+                                    $room_check = json_decode($room_check);
+                                    //echo "<script>alert('".$room_check."');</script>";
+                                    if($room_check -> {'status'} == 'occupied'){
+                                        if($room_check -> {'who'} == 'mine'){
+                                            echo 'mine';
+                                        }
+                                        else{
+                                            echo 'occupied';
+                                        }
+                                    }
+                                ?> 
+                            leftcorner" data-id="13">Room 13</button>
+                            <button class="room 
+                                <?php 
+                                    $room_check = room_check(14, $_SESSION['user_id']);
+                                    $room_check = json_decode($room_check);
+                                    //echo "<script>alert('".$room_check."');</script>";
+                                    if($room_check -> {'status'} == 'occupied'){
+                                        if($room_check -> {'who'} == 'mine'){
+                                            echo 'mine';
+                                        }
+                                        else{
+                                            echo 'occupied';
+                                        }
+                                    }
+                                ?>
+                            " data-id="14">Room 14</button>
+                            <button class="room 
+                                <?php 
+                                    $room_check = room_check(15, $_SESSION['user_id']);
+                                    $room_check = json_decode($room_check);
+                                    //echo "<script>alert('".$room_check."');</script>";
+                                    if($room_check -> {'status'} == 'occupied'){
+                                        if($room_check -> {'who'} == 'mine'){
+                                            echo 'mine';
+                                        }
+                                        else{
+                                            echo 'occupied';
+                                        }
+                                    }
+                                ?>
+                            " data-id="15">Room 15</button>
+                            <button class="room 
+                                <?php 
+                                    $room_check = room_check(16, $_SESSION['user_id']);
+                                    $room_check = json_decode($room_check);
+                                    //echo "<script>alert('".$room_check."');</script>";
+                                    if($room_check -> {'status'} == 'occupied'){
+                                        if($room_check -> {'who'} == 'mine'){
+                                            echo 'mine';
+                                        }
+                                        else{
+                                            echo 'occupied';
+                                        }
+                                    }
+                                ?>
+                            " data-id="16">Room 16</button>
+                            <br>
+                    </div>
+                </div>
 
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <h4 class="floortitle">Fifth Floor</h4>
-                                        <button class="room leftcorner">Room 17</button>
-                                        <button class="room">Room 18</button>
-                                        <button class="room">Room 19</button>
-                                        <button class="room">Room 20</button>
-                                        <br>
-                                </div>
-                            </div>
-                          </div>
+                <div class="floordivider"><br></div>
 
-                            <div class="floordivider"><br></div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h4 class="floortitle">Fifth Floor</h4>
+                            <button class="room 
+                                <?php 
+                                    $room_check = room_check(17, $_SESSION['user_id']);
+                                    $room_check = json_decode($room_check);
+                                    //echo "<script>alert('".$room_check."');</script>";
+                                    if($room_check -> {'status'} == 'occupied'){
+                                        if($room_check -> {'who'} == 'mine'){
+                                            echo 'mine';
+                                        }
+                                        else{
+                                            echo 'occupied';
+                                        }
+                                    }
+                                ?>
+                             leftcorner" data-id="17">Room 17</button>
+                            <button class="room 
+                                <?php 
+                                    $room_check = room_check(18, $_SESSION['user_id']);
+                                    $room_check = json_decode($room_check);
+                                    //echo "<script>alert('".$room_check."');</script>";
+                                    if($room_check -> {'status'} == 'occupied'){
+                                        if($room_check -> {'who'} == 'mine'){
+                                            echo 'mine';
+                                        }
+                                        else{
+                                            echo 'occupied';
+                                        }
+                                    }
+                                ?>
+                            " data-id="18">Room 18</button>
+                            <button class="room 
+                                <?php 
+                                    $room_check = room_check(19, $_SESSION['user_id']);
+                                    $room_check = json_decode($room_check);
+                                    //echo "<script>alert('".$room_check."');</script>";
+                                    if($room_check -> {'status'} == 'occupied'){
+                                        if($room_check -> {'who'} == 'mine'){
+                                            echo 'mine';
+                                        }
+                                        else{
+                                            echo 'occupied';
+                                        }
+                                    }
+                                ?>
+                            " data-id="19">Room 19</button>
+                            <button class="room 
+                                <?php 
+                                    $room_check = room_check(20, $_SESSION['user_id']);
+                                    $room_check = json_decode($room_check);
+                                    //echo "<script>alert('".$room_check."');</script>";
+                                    if($room_check -> {'status'} == 'occupied'){
+                                        if($room_check -> {'who'} == 'mine'){
+                                            echo 'mine';
+                                        }
+                                        else{
+                                            echo 'occupied';
+                                        }
+                                    }
+                                ?>
+                            " data-id="20">Room 20</button>
+                            <br>
+                    </div>
+                </div>
+            </div>
 
+            <div class="floordivider"><br></div>
 
-        
-            
         </div>
         <!-- /#page-wrapper -->
 
     </div>
     <!-- /#wrapper -->
-
-    <!-- jQuery -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="vendor/metisMenu/metisMenu.min.js"></script>
-
-    <!-- DataTables JavaScript -->
-    <script src="vendor/datatables/js/jquery.dataTables.min.js"></script>
-    <script src="vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
-    <script src="vendor/datatables-responsive/dataTables.responsive.js"></script>
-
-    <!-- Custom Theme JavaScript -->
-    <script src="dist/js/sb-admin-2.js"></script>
-
-    <!-- Page-Level Demo Scripts - Tables - Use for reference -->
-    <script>
-    $(document).ready(function() {
-        $('#dataTables-example').DataTable({
-            responsive: true
-        });
-
-
-        $(document).on('click', '.room', function(){
-
-        var roomCondition = 'vacantRoom';
-
-            if (roomCondition === "occupiedRoom") {
-                $('#modalOccupiedRoom').modal('show');
-            }
-            else if (roomCondition === "myRoom") {
-                $('#modalMyRoom').modal('show');
-            }
-            else if (roomCondition === "vacantRoom") {
-                $('#modalVacantRoom').modal('show');
-            }
-        });
-
-        $('[data-toggle="tooltip"]').tooltip();
-
-    });
-
-    </script>
-  
 
 <!-- Pag occupied yung room di niya maviview details kasi private yun, si admin lang makakakita -->
 <!-- This is the Modal that will be called for occupied room btn -->
@@ -205,10 +441,32 @@
                         <h4 class ="modal-title"> Room Vacant! </h4>
                       </div>
                       <div class="modal-body">
-                            <p> &emsp; <label>This room is not yet occupied.</label> <br><br> &emsp; Click <label>OCCUPY</label> to send application to occupy this room under your account. You will be considered as a tenant of this room and be responsible for payments afterwards.<br><br> &emsp; Click <label>TRANSFER</label> to send request of change room. If approved by the admin,  tranferring of stuffs must be done the next day after approval.</p>
+                            <p> &emsp; <label>This room is not yet occupied.</label> <br>
+                                <table>
+                                    <tr>
+                                        <td>Picture</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>ID</td>
+                                        <td><label id="v_room_id"></label></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Room Name</td>
+                                        <td><label id="v_room_name"></label></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Room Rate</td>
+                                        <td><label id="v_rent_rate"></label></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Room Description</td>
+                                        <td><label id="v_room_description"></label></td>
+                                    </tr>
+                                </table>
+                                <br> &emsp; Click <label>OCCUPY</label> to send application to occupy this room under your account. You will be considered as a tenant of this room and be responsible for payments afterwards.<br><br> &emsp; Click <label>TRANSFER</label> to send request of change room. If approved by the admin,  tranferring of stuffs must be done the next day after approval.</p>
                       </div>
                       <div class = "modal-footer">
-                        <button type ="button" class = "btn btn-primary" data-dismiss = "modal"> OCCUPY </button>
                         <button type ="button" class = "btn btn-success" data-dismiss = "modal"> TRANSFER </button>
                         <button type ="button" class = "btn btn-default" data-dismiss = "modal"> CLOSE </button>
                       </div>
@@ -232,32 +490,24 @@
                             </center>
                             <table>
                             <tr>
-                                <td> First Name: </td>
-                                <td><label>Dessuh</label></td>
-                            </tr>
-                            <tr>
-                                <td> Middle Name: </td>
-                                <td><label>Remollenuh</label></td>
-                            </tr>
-                            <tr>
-                                <td> Last Name: </td>
-                                <td><label>Albuh</label></td>
+                                <td> Name: </td>
+                                <td><label id="m_name"></label></td>
                             </tr>
                             <tr>
                                 <td> Birthdate: </td>
-                                <td><label>Nov 14 1998</label> </td>
+                                <td><label id="m_birth_date"></label> </td>
                             </tr>
                             <tr>
                                 <td> Gender: </td>
-                                <td><label>Male</label></td>
+                                <td><label id="m_gender"></label></td>
                             </tr>
                             <tr>
                                 <td> Contact No: </td>
-                                <td><label>09469612795</label></td>
+                                <td><label id="m_contact_no"></label></td>
                             </tr>
                             <tr>
                                 <td> Email: </td>
-                                <td><label>dessaalba08@gmail.com</label></td>
+                                <td><label id="m_email"></label></td>
                             </tr>
                         </table>
                       </form>
@@ -273,7 +523,109 @@
                     </div>
               </div>
             </div>
+    <!-- jQuery -->
+    <script src="vendor/jquery/jquery.min.js"></script>
 
+    <!-- Bootstrap Core JavaScript -->
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="vendor/metisMenu/metisMenu.min.js"></script>
+
+    <!-- DataTables JavaScript -->
+    <script src="vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+    <script src="vendor/datatables-responsive/dataTables.responsive.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="dist/js/sb-admin-2.js"></script>
+
+    <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+    <script>
+        $(document).ready(function() {
+            $('#dataTables-example').DataTable({
+                responsive: true
+            });
+
+            $(document).on('click', '.room', function(){
+                var room_id = $(this).attr('data-id');
+                var user_id = <?php echo $_SESSION['user_id']; ?>;
+                var room_check = 'selected';
+
+                $.ajax({
+                        url: 'functions/room_function.php',
+                        method: 'POST',
+                        data: {
+                            room_check_data: room_check,
+                            room_id_data: room_id,
+                            user_id_data: user_id
+                        },
+                        success: function(data) {
+                            var data = JSON.parse(data);
+                            if(data.success == "true"){
+                                if(data.status == "occupied"){
+                                    // $("#o_room_picture").html(data.room_picture);
+                                    // $("#o_room_id").html(data.room_id);
+                                    // $("#o_room_name").html(data.room_name);
+                                    // $("#o_rent_rate").html(data.rent_rate);
+                                    // $("#o_room_description").html(data.room_description);
+
+                                    // $("#o_profile_picture").html(data.profile_picture);
+                                    // $("#o_user_id").html(data.user_id);
+                                    // $("#o_name").html(data.name);
+                                    // $("#o_birthdate").html(data.birth_date);
+                                    // $("#o_gender").html(data.gender);
+                                    // $("#o_contactno").html(data.contact_no);
+                                    // $("#o_email").html(data.email);
+                                    // $("#btnTerminate").attr('data-id', data.rental_id);
+                                    // $('#modalOccupiedRoom').modal('show');
+                                    $('#modalOccupiedRoom').modal('show');
+                                }
+                                else if (data.status == "vacant"){
+                                    $("#v_room_picture").html(data.room_picture);
+                                    $("#v_room_id").html(data.room_id);
+                                    $("#v_room_name").html(data.room_name);
+                                    $("#v_rent_rate").html(data.rent_rate);
+                                    $("#v_room_description").html(data.room_description);
+                                    $('#modalVacantRoom').modal('show');
+                                }
+                                else if (data.status == "my_room"){
+                                    $("#m_name").html(data.name);
+                                    $("#m_birth_date").html(data.birth_date);
+                                    $("#m_gender").html(data.gender);
+                                    $("#m_contact_no").html(data.contact_no);
+                                    $("#m_email").html(data.email);
+                                    $('#modalMyRoom').modal('show');
+                                }
+                                // var table = $('#table-contents').DataTable();
+                            //     table.row('#'+tenant_id).remove().draw();
+                            }
+                            else if (data.success == "false"){
+                                alert(data.message);
+                            }
+                        },
+                        error: function(xhr) {
+                            console.log(xhr.status + ":" + xhr.statusText);
+                        }
+                    });
+                });
+
+                // var roomCondition = 'vacantRoom';
+
+                //     if (roomCondition === "occupiedRoom") {
+                //         $('#modalOccupiedRoom').modal('show');
+                //     }
+                //     else if (roomCondition === "myRoom") {
+                //         $('#modalMyRoom').modal('show');
+                //     }
+                //     else if (roomCondition === "vacantRoom") {
+                        
+                //     }
+                // });
+
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
 </body>
 
 </html>

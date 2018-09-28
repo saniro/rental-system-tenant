@@ -1,3 +1,8 @@
+<?php
+    if(isset($_SESSION['user_id'])){
+        header("location:index?route=notifications");
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,20 +28,6 @@
 
     <!-- Custom Fonts -->
     <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
-<script type="text/javascript">
-
- function showpassword() {
-    var x = document.getElementById("password");
-    if (x.type === "password") {
-        x.type = "text";
-    } else {
-        x.type = "password";
-    }
-}
-
-</script>
-
 </head>
 
 <body>
@@ -63,7 +54,7 @@
                                    </label>
                                 </div>
                                 <!-- Change this to a button or input when using this as a form -->
-                                <a href="index?route=notifications" class="btn btn-lg btn-success btn-block login" name="login">Login</a>
+                                <button type="button" class="btn btn-lg btn-success btn-block login" name="login">Login</button>
                             </fieldset>
                         </form>
                     </div>
@@ -84,8 +75,47 @@
     <!-- Custom Theme JavaScript -->
     <script src="dist/js/sb-admin-2.js"></script>
 
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.login').on('click', function() {
+                var email = $("#email").val();
+                var password = $("#password").val();
+                var login = 'selected';
+                $.ajax({
+                    url: 'functions/login_function.php',
+                    method: 'POST',
+                    data: {
+                        login_data: login,
+                        email_data: email,
+                        password_data: password
+                    },
+                    success: function(data){
+                        var data = JSON.parse(data);
 
+                        if(data.success == "true"){
+                            alert("Welcome " + data.first_name + "!");
+                            window.location.href = "index?route=notifications";
+                        }
+                        else if(data.success == "false"){
+                            alert(data.message);
+                        }
+                    },
+                    error: function(xhr){
+                        console.log(xhr.status + ":" + xhr.statusText);
+                    }
+                });
+            });
+        });
 
+        function showpassword() {
+            var x = document.getElementById("password");
+            if (x.type === "password") {
+                x.type = "text";
+            } else {
+                x.type = "password";
+            }
+        }
+    </script>
 </body>
 
 </html>

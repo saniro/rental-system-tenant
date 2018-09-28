@@ -1,11 +1,12 @@
 <?php
+	session_start();
 	require("../connection/connection.php");
-	if(isset($_POST['email_data']) && isset($_POST['password_data'])){
+	if(isset($_POST['login_data'])){
 		$email = $_POST['email_data'];
 		$password = $_POST['password_data'];
 
 		if(($email != NULL) || ($password != NULL)){
-			$query = "SELECT user_id, email, password, profile_picture, first_name FROM user_tbl WHERE email = :email AND password = :password AND user_type = 1 AND flag = 1";
+			$query = "SELECT user_id, email, password, profile_picture, first_name FROM user_tbl WHERE email = :email AND password = :password AND user_type = 0 AND flag = 1";
 			$stmt = $con->prepare($query);
 			$stmt->bindParam(':email', $email, PDO::PARAM_STR);
 			$stmt->bindParam(':password', $password, PDO::PARAM_STR);
@@ -19,6 +20,7 @@
 				echo $output;
 			}
 			else{
+				$_SESSION["user_id"] = $row['user_id'];
 				$data = array("success" => "true", "first_name" => $row['first_name']);
 				$output = json_encode($data);
 				echo $output;
