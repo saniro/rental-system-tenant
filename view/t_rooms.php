@@ -464,18 +464,18 @@
                                         <td><label id="v_room_description"></label></td>
                                     </tr>
                                 </table>
-                                <br> &emsp; Click <label>OCCUPY</label> to send application to occupy this room under your account. You will be considered as a tenant of this room and be responsible for payments afterwards.<br><br> &emsp; Click <label>TRANSFER</label> to send request of change room. If approved by the admin,  tranferring of stuffs must be done the next day after approval.</p>
+                                <br> &emsp; Click <label>TRANSFER</label> to send request of change room. If approved by the admin,  tranferring of stuffs must be done the next day after approval.</p>
                       </div>
                       <div class = "modal-footer">
-                        <button type ="button" class = "btn btn-success" data-dismiss = "modal"> TRANSFER </button>
-                        <button type ="button" class = "btn btn-default" data-dismiss = "modal"> CLOSE </button>
+                        <button type="button" class="btn btn-success" id="SubmitTransfer" data-dismiss="modal"> TRANSFER </button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal"> CLOSE </button>
                       </div>
                     </div>
               </div>
             </div>
 
 <!-- This is the Modal that will be called for my room btn -->
-          <div id = "modalMyRoom" class = "modal fade"  role = "dialog">
+        <div id = "modalMyRoom" class = "modal fade"  role = "dialog">
             <div class = "modal-dialog">
 
               <div class="modal-content">
@@ -517,12 +517,51 @@
                       <br>
                       </div>
                       <div class = "modal-footer">
-                        <button type="button" class = "btn btn-danger" data-dismiss = "modal">TERMINATE </button>
+                        <button type="button" class = "btn btn-danger" id="SubmitTerminate" data-dismiss = "modal">TERMINATE </button>
                         <button type ="button" class = "btn btn-default" data-dismiss = "modal"> CLOSE </button>
                       </div>
                     </div>
               </div>
-            </div>
+        </div>
+
+        <div id = "modalConfirmRemovalExistingRequest" class = "modal fade"  role = "dialog">
+            <div class = "modal-dialog">
+
+              <div class="modal-content">
+                <div class = "modal-header">
+                  <button type="button" class = "close" data-dismiss ="modal"> &times;</button>
+                        <h4 class ="modal-title"> Confirmation </h4>
+                      </div>
+                      <div class="modal-body">
+                            <p> &emsp; <label>You already have a request.</label> <br>
+                            <br> &emsp; Click <label>YES</label> to cancel your request to change room to <label id="old_room"></label> to <label id="new_room"></label>.</p>
+                      </div>
+                      <div class = "modal-footer">
+                        <button type="button" class="btn btn-success" id="SubmitNewTransfer" data-dismiss="modal"> YES </button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal"> NO </button>
+                      </div>
+                    </div>
+              </div>
+        </div>
+
+        <div id = "modalConfirmTerminationRequest" class = "modal fade"  role = "dialog">
+            <div class = "modal-dialog">
+
+              <div class="modal-content">
+                <div class = "modal-header">
+                  <button type="button" class = "close" data-dismiss ="modal"> &times;</button>
+                        <h4 class ="modal-title"> Confirmation </h4>
+                      </div>
+                      <div class="modal-body">
+                            <p> &emsp; <label>Are you sure to send termination request?</label></p>
+                      </div>
+                      <div class = "modal-footer">
+                        <button type="button" class="btn btn-success" id="SubmitConfirmTerminate" data-dismiss="modal"> YES </button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal"> NO </button>
+                      </div>
+                    </div>
+              </div>
+        </div>
     <!-- jQuery -->
     <script src="vendor/jquery/jquery.min.js"></script>
 
@@ -553,75 +592,177 @@
                 var room_check = 'selected';
 
                 $.ajax({
-                        url: 'functions/room_function.php',
-                        method: 'POST',
-                        data: {
-                            room_check_data: room_check,
-                            room_id_data: room_id,
-                            user_id_data: user_id
-                        },
-                        success: function(data) {
-                            var data = JSON.parse(data);
-                            if(data.success == "true"){
-                                if(data.status == "occupied"){
-                                    // $("#o_room_picture").html(data.room_picture);
-                                    // $("#o_room_id").html(data.room_id);
-                                    // $("#o_room_name").html(data.room_name);
-                                    // $("#o_rent_rate").html(data.rent_rate);
-                                    // $("#o_room_description").html(data.room_description);
-
-                                    // $("#o_profile_picture").html(data.profile_picture);
-                                    // $("#o_user_id").html(data.user_id);
-                                    // $("#o_name").html(data.name);
-                                    // $("#o_birthdate").html(data.birth_date);
-                                    // $("#o_gender").html(data.gender);
-                                    // $("#o_contactno").html(data.contact_no);
-                                    // $("#o_email").html(data.email);
-                                    // $("#btnTerminate").attr('data-id', data.rental_id);
-                                    // $('#modalOccupiedRoom').modal('show');
-                                    $('#modalOccupiedRoom').modal('show');
-                                }
-                                else if (data.status == "vacant"){
-                                    $("#v_room_picture").html(data.room_picture);
-                                    $("#v_room_id").html(data.room_id);
-                                    $("#v_room_name").html(data.room_name);
-                                    $("#v_rent_rate").html(data.rent_rate);
-                                    $("#v_room_description").html(data.room_description);
-                                    $('#modalVacantRoom').modal('show');
-                                }
-                                else if (data.status == "my_room"){
-                                    $("#m_name").html(data.name);
-                                    $("#m_birth_date").html(data.birth_date);
-                                    $("#m_gender").html(data.gender);
-                                    $("#m_contact_no").html(data.contact_no);
-                                    $("#m_email").html(data.email);
-                                    $('#modalMyRoom').modal('show');
-                                }
-                                // var table = $('#table-contents').DataTable();
-                            //     table.row('#'+tenant_id).remove().draw();
+                    url: 'functions/room_function.php',
+                    method: 'POST',
+                    data: {
+                        room_check_data: room_check,
+                        room_id_data: room_id,
+                        user_id_data: user_id
+                    },
+                    success: function(data) {
+                        var data = JSON.parse(data);
+                        if(data.success == "true"){
+                            if(data.status == "occupied"){
+                                $('#modalOccupiedRoom').modal('show');
                             }
-                            else if (data.success == "false"){
+                            else if (data.status == "vacant"){
+                                $("#v_room_picture").html(data.room_picture);
+                                $("#v_room_id").html(data.room_id);
+                                $("#v_room_name").html(data.room_name);
+                                $("#v_rent_rate").html(data.rent_rate);
+                                $("#v_room_description").html(data.room_description);
+                                $("#SubmitTransfer").attr('data-id', data.room_id);
+                                $('#modalVacantRoom').modal('show');
+                            }
+                            else if (data.status == "my_room"){
+                                $("#m_name").html(data.name);
+                                $("#m_birth_date").html(data.birth_date);
+                                $("#m_gender").html(data.gender);
+                                $("#m_contact_no").html(data.contact_no);
+                                $("#m_email").html(data.email);
+                                $("#SubmitTerminate").attr('data-id', room_id);
+                                $('#modalMyRoom').modal('show');
+                            }
+                            // var table = $('#table-contents').DataTable();
+                        //     table.row('#'+tenant_id).remove().draw();
+                        }
+                        else if (data.success == "false"){
+                            alert(data.message);
+                        }
+                    },
+                    error: function(xhr) {
+                        console.log(xhr.status + ":" + xhr.statusText);
+                    }
+                });
+            });
+
+            $(document).on('click', '#SubmitTransfer', function(){
+                var room_id = $(this).attr('data-id');
+                var user_id = <?php echo $_SESSION['user_id']; ?>;
+                var room_transfer_request = 'selected';
+
+                $.ajax({
+                    url: 'functions/insert_function.php',
+                    method: 'POST',
+                    data: {
+                        room_transfer_request_data: room_transfer_request,
+                        room_id_data: room_id,
+                        user_id_data: user_id
+                    },
+                    success: function(data) {
+                        var data = JSON.parse(data);
+                        if(data.success == "true"){
+                            if(data.request == "made"){
+                                $('#old_room').html(data.old_room_name);
+                                $('#new_room').html(data.new_room_name);
+                                $('#SubmitNewTransfer').attr('data-id', room_id);
+                                $('#modalConfirmRemovalExistingRequest').modal('show');
+                            }
+                            else if(data.request == "none"){
                                 alert(data.message);
                             }
-                        },
-                        error: function(xhr) {
-                            console.log(xhr.status + ":" + xhr.statusText);
                         }
-                    });
+                        else if (data.success == "false"){
+                            alert(data.message);
+                        }
+                    },
+                    error: function(xhr) {
+                        console.log(xhr.status + ":" + xhr.statusText);
+                    }
                 });
+            });
 
-                // var roomCondition = 'vacantRoom';
+            $(document).on('click', '#SubmitNewTransfer', function(){
+                var room_id = $(this).attr('data-id');
+                var user_id = <?php echo $_SESSION['user_id']; ?>;
+                var room_new_transfer_request = 'selected';
 
-                //     if (roomCondition === "occupiedRoom") {
-                //         $('#modalOccupiedRoom').modal('show');
-                //     }
-                //     else if (roomCondition === "myRoom") {
-                //         $('#modalMyRoom').modal('show');
-                //     }
-                //     else if (roomCondition === "vacantRoom") {
-                        
-                //     }
-                // });
+                $.ajax({
+                    url: 'functions/update_function.php',
+                    method: 'POST',
+                    data: {
+                        room_new_transfer_request_data: room_new_transfer_request,
+                        room_id_data: room_id,
+                        user_id_data: user_id
+                    },
+                    success: function(data) {
+                        var data = JSON.parse(data);
+                        if(data.success == "true"){
+                            if(data.request == "made"){
+                                alert(data.message);
+                            }
+                        }
+                        else if (data.success == "false"){
+                            alert(data.message);
+                        }
+                    },
+                    error: function(xhr) {
+                        console.log(xhr.status + ":" + xhr.statusText);
+                    }
+                });
+            });
+
+            $(document).on('click', '#SubmitTerminate', function(){
+                var room_id = $(this).attr('data-id');
+                var user_id = <?php echo $_SESSION['user_id']; ?>;
+                var room_confirm_terminate_request = 'selected';
+
+                $.ajax({
+                    url: 'functions/select_function.php',
+                    method: 'POST',
+                    data: {
+                        room_confirm_terminate_request_data: room_confirm_terminate_request,
+                        room_id_data: room_id,
+                        user_id_data: user_id
+                    },
+                    success: function(data) {
+                        var data = JSON.parse(data);
+                        if(data.success == "true"){
+                            $('#SubmitConfirmTerminate').attr('data-id', room_id);
+                            $('#modalConfirmTerminationRequest').modal('show');
+                            // alert('rental_id ' + data.rental_id);
+                            // alert('user id '+ data.user_id);
+                        }
+                        else if (data.success == "false"){
+                            alert(data.message);
+                        }
+                    },
+                    error: function(xhr) {
+                        console.log(xhr.status + ":" + xhr.statusText);
+                    }
+                });
+            });
+
+            $(document).on('click', '#SubmitConfirmTerminate', function(){
+                var room_id = $(this).attr('data-id');
+                var user_id = <?php echo $_SESSION['user_id']; ?>;
+                var room_terminate_request = 'selected';
+
+                $.ajax({
+                    url: 'functions/insert_function.php',
+                    method: 'POST',
+                    data: {
+                        room_terminate_request_data: room_terminate_request,
+                        room_id_data: room_id,
+                        user_id_data: user_id
+                    },
+                    success: function(data) {
+                        var data = JSON.parse(data);
+                        if(data.success == "true"){
+                            alert(data.message);
+                            // $('#modalConfirmTerminationRequest').modal('show');
+                            // alert('rental_id ' + data.rental_id);
+                            // alert('user id '+ data.user_id);
+                        }
+                        else if (data.success == "false"){
+                            alert(data.message);
+                        }
+                    },
+                    error: function(xhr) {
+                        console.log(xhr.status + ":" + xhr.statusText);
+                    }
+                });
+            });
 
             $('[data-toggle="tooltip"]').tooltip();
         });

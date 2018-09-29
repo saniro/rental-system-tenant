@@ -62,30 +62,39 @@
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                            <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                            <table width="100%" class="table table-striped table-bordered table-hover" id="contents">
                                 <thead>
                                     <tr>
-                                        <th>Complaint ID</th>
-                                        <th>Date</th>
-                                        <th>Subject</th>
-                                        <th>Description</th>
+                                        <th>ID</th>
+                                        <th>Date Sent</th>
+                                        <th>Message</th>
+                                        <th>Status</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="odd gradeX">
-                                        <td>1</td>
-                                        <td>Jan 02 2019</td>
-                                        <td>Policies</td>
-                                        <td>I can't follow rule #2. I have a pet (cat) and can't simply leave it outdoor. Can I instead keep it in? I promise to keep it quiet and clean to avoid any possible problem.</td>
-                                        <td class="center">
-                                            <center>
-                                                <button data-toggle="tooltip" title="View Full Details" class="btn btn-info"><span class="fa fa-file-text-o"></span></button>
-                                               <!--  <button data-toggle="tooltip" title="Edit Complaint" class="btn btn-success" id="btnEdit"><span class="fa fa-edit"></span></button> -->
-                                                <button data-toggle="tooltip" title="Cancel Complaint" class="btn btn-danger" id="btnCancel"><span class="glyphicon glyphicon-remove"></span></button>
-                                            </center>
-                                        </td>
-                                    </tr>
+                                    <?php
+                                        $all_complaint = complaint_list();
+                                        $all_complaint = json_decode($all_complaint);
+
+                                        foreach ($all_complaint as $value) {
+                                        ?>
+                                        <tr class="odd gradeX">
+                                            <td><?php echo $value -> {'complaint_id'}; ?></td>
+                                            <td><?php echo $value -> {'message_date'}; ?></td>
+                                            <td style="width: 55%;"><?php echo $value -> {'message'}; ?></td>
+                                            <td><?php echo $value -> {'status'}; ?></td>
+                                            <td class="center">
+                                                <center>
+                                                    <button data-toggle="tooltip" title="View Full Details" class="btn btn-info"><span class="fa fa-file-text-o"></span></button>
+                                                   <!--  <button data-toggle="tooltip" title="Edit Complaint" class="btn btn-success" id="btnEdit"><span class="fa fa-edit"></span></button> -->
+                                                    <button data-toggle="tooltip" title="Cancel Complaint" class="btn btn-danger" id="btnCancel"><span class="glyphicon glyphicon-remove"></span></button>
+                                                </center>
+                                            </td>
+                                        </tr>
+                                        <?php
+                                        }
+                                    ?>
                                 </tbody>
                             </table>
                         </div>
@@ -102,48 +111,6 @@
     </div>
     <!-- /#wrapper -->
 
-    <!-- jQuery -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="vendor/metisMenu/metisMenu.min.js"></script>
-
-    <!-- DataTables JavaScript -->
-    <script src="vendor/datatables/js/jquery.dataTables.min.js"></script>
-    <script src="vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
-    <script src="vendor/datatables-responsive/dataTables.responsive.js"></script>
-
-    <!-- Custom Theme JavaScript -->
-    <script src="dist/js/sb-admin-2.js"></script>
-
-    <!-- Page-Level Demo Scripts - Tables - Use for reference -->
-    <script>
-    $(document).ready(function() {
-        $('#dataTables-example').DataTable({
-            responsive: true
-        });
-
-        $(document).on('click', '#btnAdd', function(){
-            $('#modalAddComplaint').modal('show');
-        });
-
-        // $(document).on('click', '#btnEdit', function(){
-        //     $('#modalEditComplaint').modal('show');
-        // });
-
-        $(document).on('click', '#btnCancel', function(){
-            $('#modalCancelComplaint').modal('show');
-        });
-
-        $('[data-toggle="tooltip"]').tooltip();
-
-    });
-    </script>
-
-
  <!-- This is the Modal that will be called for add complaint -->
       <div class = "modal fade" id = "modalAddComplaint" role = "dialog">
         <div class = "modal-dialog">
@@ -159,12 +126,8 @@
                       <div class = "form-group">
                         <table>
                             <tr>
-                                <td> Subject: </td>
-                                <td><input type="text" placeholder="Enter Subject" required></td>
-                            </tr>
-                            <tr>
-                                <td> Description: </td>
-                                <td><textarea placeholder="Describe here..."></textarea></td>
+                                <td> Message: </td>
+                                <td><textarea id="s_message" placeholder="Describe here..."></textarea></td>
                             </tr>
                         </table>
                       </div><br>
@@ -216,8 +179,81 @@
                       </div>
                     </div>
               </div>
-            </div>
+        </div>
+    <!-- jQuery -->
+    <script src="vendor/jquery/jquery.min.js"></script>
 
+    <!-- Bootstrap Core JavaScript -->
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="vendor/metisMenu/metisMenu.min.js"></script>
+
+    <!-- DataTables JavaScript -->
+    <script src="vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+    <script src="vendor/datatables-responsive/dataTables.responsive.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="dist/js/sb-admin-2.js"></script>
+
+    <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+    <script>
+        $(document).ready(function() {
+            $('#contents').DataTable({
+                responsive: true
+            });
+
+            $(document).on('click', '#btnAdd', function(){
+                $('#modalAddComplaint').modal('show');
+            });
+
+            // $(document).on('click', '#btnEdit', function(){
+            //     $('#modalEditComplaint').modal('show');
+            // });
+
+            $(document).on('click', '#btnCancel', function(){
+                $('#modalCancelComplaint').modal('show');
+            });
+
+            $(document).on('click', '#SubmitAdd', function(){
+                var message = $("#s_message").val();
+                var complaint_send = 'selected';
+                $.ajax({
+                    url: 'functions/insert_function.php',
+                    method: 'POST',
+                    data: {
+                        complaint_send_data: complaint_send,
+                        message_data: message
+                    },
+                    success: function(data) {
+                        var data = JSON.parse(data);
+                        var table = $("#contents").DataTable();
+                        if(data.success == "true"){
+                            var buttons = '<center><button data-toggle="tooltip" title="View Full Details" class="btn btn-info"><span class="fa fa-file-text-o"></span></button><button data-toggle="tooltip" title="Cancel Complaint" class="btn btn-danger" id="btnCancel"><span class="glyphicon glyphicon-remove"></span></button></center>';
+                            table.row.add([
+                                data.complaint_id,
+                                data.message_date,
+                                data.message_send,
+                                data.status,
+                                buttons
+                            ]).draw(true);
+                            alert(data.message);
+                        }
+                        else if (data.success == "false"){
+                            alert(data.message);
+                        }
+                    },
+                    error: function(xhr) {
+                        console.log(xhr.status + ":" + xhr.statusText);
+                    }
+                });
+            });
+
+            $('[data-toggle="tooltip"]').tooltip();
+
+        });
+    </script>
 </body>
 
 </html>
