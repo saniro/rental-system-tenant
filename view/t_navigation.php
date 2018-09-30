@@ -38,7 +38,7 @@
     <div class="navbar-default sidebar" role="navigation">
         <div class="sidebar-nav navbar-collapse">
             <ul class="nav" id="side-menu">
-                <li class="sidebar-search" style="text-align:center;">
+                <li class="sidebar-search">
                     <div class="input-group custom-search-form">
                         <!-- <input type="text" class="form-control" placeholder="Search..."> -->
                         <!-- <span class="input-group-btn"> -->
@@ -50,7 +50,8 @@
                         $user_profile = user_profile($_SESSION['user_id']);
                         $user_profile = json_decode($user_profile);
                     ?>
-					<label><?php echo $user_profile -> {'last_name'}; ?>, <?php echo $user_profile -> {'first_name'}; ?></label>
+                    <img style="display:inline-block;margin-right:5px;width:13%;height:8%;" onerror="users/default-profile-picture.png" src="users/default-profile-picture.png" class="fa-fw">
+                    <label style="text-align:center;"><?php echo $user_profile -> {'last_name'}; ?>, <?php echo $user_profile -> {'first_name'}; ?></label>
                     </div>
                     <!-- /input-group -->
                 </li>

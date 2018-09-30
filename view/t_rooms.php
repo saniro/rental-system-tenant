@@ -52,7 +52,10 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Rooms</h1>
+                    <h1 class="page-header">Rooms
+                              <button style = "font-weight:bold;float:right;" class="btn btn-primary" id="btnViewTR">View Termination Request</button>
+                              <button style = "font-weight:bold;float:right;margin-right:5px;" class="btn btn-success" id="btnViewCR">View Change Room Request</button>
+                    </h1>
                     <div class="floordivider"></div>
                 </div>
                 <!-- /.col-lg-12 -->
@@ -441,30 +444,25 @@
                         <h4 class ="modal-title"> Room Vacant! </h4>
                       </div>
                       <div class="modal-body">
-                            <p> &emsp; <label>This room is not yet occupied.</label> <br>
-                                <table>
-                                    <tr>
-                                        <td>Picture</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td>ID</td>
-                                        <td><label id="v_room_id"></label></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Room Name</td>
-                                        <td><label id="v_room_name"></label></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Room Rate</td>
-                                        <td><label id="v_rent_rate"></label></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Room Description</td>
-                                        <td><label id="v_room_description"></label></td>
-                                    </tr>
-                                </table>
-                                <br> &emsp; Click <label>TRANSFER</label> to send request of change room. If approved by the admin,  tranferring of stuffs must be done the next day after approval.</p>
+                                <form>
+                                    <div class="form-group">
+                                        <label> ID: </label>
+                                        <label id="v_room_id" class="form-control"></label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label> Room Name: </label>
+                                        <label id="v_room_name" class="form-control"></label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label> Room Rate: </label>
+                                        <label id="v_rent_rate" class="form-control"></label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label> Room Description: </label>
+                                        <label id="v_room_description" class="form-control"></label>
+                                    </div>
+                                </form>
+                                <p><br> &emsp; This room is not yet occupied. Click <label>TRANSFER</label> to send request of change room. If approved by the admin,  tranferring of stuffs must be done the next day after approval.</p>
                       </div>
                       <div class = "modal-footer">
                         <button type="button" class="btn btn-success" id="SubmitTransfer" data-dismiss="modal"> TRANSFER </button>
@@ -488,28 +486,28 @@
                             <center>
                                     <img src="users/defaultprofpic.jpg" alt="Profile Picture">
                             </center>
-                            <table>
-                            <tr>
-                                <td> Name: </td>
-                                <td><label id="m_name"></label></td>
-                            </tr>
-                            <tr>
-                                <td> Birthdate: </td>
-                                <td><label id="m_birth_date"></label> </td>
-                            </tr>
-                            <tr>
-                                <td> Gender: </td>
-                                <td><label id="m_gender"></label></td>
-                            </tr>
-                            <tr>
-                                <td> Contact No: </td>
-                                <td><label id="m_contact_no"></label></td>
-                            </tr>
-                            <tr>
-                                <td> Email: </td>
-                                <td><label id="m_email"></label></td>
-                            </tr>
-                        </table>
+                            <form>
+                                <div class="form-group">
+                                    <label> Name: </label>
+                                    <label id="m_name" class="form-control"></label>
+                                </div>
+                                <div class="form-group">
+                                    <label> Birthdate: </label>
+                                    <label id="m_birth_date" class="form-control"></label>
+                                </div>
+                                <div class="form-group">
+                                    <label> Gender: </label>
+                                    <label id="m_gender" class="form-control"></label>
+                                </div>
+                                <div class="form-group">
+                                    <label> Contact No: </label>
+                                    <label id="m_contact_no" class="form-control"></label>
+                                </div>
+                                <div class="form-group">
+                                    <label> Email: </label>
+                                    <label id="m_email" class="form-control"></label>
+                                </div>
+                        </form>
                       </form>
                       <br>
                        <label style="color:red;">PLEASE BE INFORMED:</label> 
@@ -562,6 +560,50 @@
                     </div>
               </div>
         </div>
+
+
+<!-- modalViewTR -->
+        <div id = "modalViewTR" class = "modal fade"  role = "dialog">
+            <div class = "modal-dialog">
+
+              <div class="modal-content">
+                <div class = "modal-header">
+                  <button type="button" class = "close" data-dismiss ="modal"> &times;</button>
+                        <h4 class ="modal-title"> Termination Request </h4>
+                      </div>
+                      <div class="modal-body">
+                            <p> &emsp; You sent a request to terminate your tenancy last <label> JANUARY 21, 2018 </label>. Do you wish to cancel this request?</p>
+                      </div>
+                      <div class = "modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal"> CANCEL REQUEST </button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal"> CLOSE </button>
+                      </div>
+                    </div>
+              </div>
+        </div>
+
+
+<!-- modalViewCR -->
+        <div id = "modalViewCR" class = "modal fade"  role = "dialog">
+            <div class = "modal-dialog">
+
+              <div class="modal-content">
+                <div class = "modal-header">
+                  <button type="button" class = "close" data-dismiss ="modal"> &times;</button>
+                        <h4 class ="modal-title"> Change Room Request </h4>
+                      </div>
+                      <div class="modal-body">
+                            <p> &emsp; You sent a request to transfer from <label> ROOM 04 </label> to <label> ROOM 08 </label> last <label> JANUARY 21, 2018 </label>. Do you wish to cancel this request?</p>
+                      </div>
+                      <div class = "modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal"> CANCEL REQUEST </button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal"> CLOSE </button>
+                      </div>
+                    </div>
+              </div>
+        </div>
+
+
     <!-- jQuery -->
     <script src="vendor/jquery/jquery.min.js"></script>
 
@@ -584,6 +626,14 @@
         $(document).ready(function() {
             $('#dataTables-example').DataTable({
                 responsive: true
+            });
+
+            $(document).on('click', '#btnViewTR', function(){
+                $('#modalViewTR').modal('show');
+            });
+
+            $(document).on('click', '#btnViewCR', function(){
+                $('#modalViewCR').modal('show');
             });
 
             $(document).on('click', '.room', function(){

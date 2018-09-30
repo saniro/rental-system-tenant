@@ -122,16 +122,10 @@
                   </div>
                   <div class="modal-body">
                     <form>
-
                       <div class = "form-group">
-                        <table>
-                            <tr>
-                                <td> Message: </td>
-                                <td><textarea id="s_message" placeholder="Describe here..."></textarea></td>
-                            </tr>
-                        </table>
-                      </div><br>
-
+                        <label> Message: </label>
+                        <textarea id="s_message" class="form-control" placeholder="Describe here..."></textarea>
+                      </div>
                     </form>
                   </div>
                   <div class = "modal-footer">
@@ -153,25 +147,23 @@
                       </div>
                       <div class="modal-body">
                         <form>
-                            <table>
-                            <tr>
-                                <td> ID: </td>
-                                <td> 1</td>
-                            </tr>
-                            <tr>
-                                <td> Date: </td>
-                                <td> Feb 23 2019</td>
-                            </tr>
-                            <tr>
-                                <td> Subject: </td>
-                                <td> Policies</td>
-                            </tr>
-                        </table>
-                      <br>
+                            <div class="form-group">
+                                <label> ID: </label>
+                                <label id="" class="form-control"></label>
+                            </div>
+                            <div class="form-group">
+                                <label> Date: </label>
+                                <label id="" class="form-control"></label>
+                            </div>
+                            <div class="form-group">
+                                <label> Message: </label>
+                                <input class="form-control" placeholder="" value="" disabled="true">
+                            </div>
+                      </form>
+                      
                        <label style="color:red;">PLEASE CONFIRM:</label> 
                         <label style="color:gray;">&emsp; Please confirm cancellation of complaint. This complaint will be voided and disregarded once you confirmed to cancel complaint.</label>
                       <br>
-                      </form>
                       </div>
                       <div class = "modal-footer">
                         <button type="button" class = "btn btn-danger" data-dismiss = "modal">CANCEL COMPLAINT </button>
@@ -180,6 +172,46 @@
                     </div>
               </div>
         </div>
+
+
+
+<!-- This is the Modal that will be called for view complaint -->
+          <div id = "modalViewComplaint" class = "modal fade"  role = "dialog">
+            <div class = "modal-dialog">
+
+              <div class="modal-content">
+                <div class = "modal-header">
+                  <button type="button" class = "close" data-dismiss ="modal"> &times;</button>
+                        <h4 class ="modal-title"> Complaint Details </h4>
+                      </div>
+                      <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label> ID: </label>
+                                <label id="" class="form-control"></label>
+                            </div>
+                            <div class="form-group">
+                                <label> Date: </label>
+                                <label id="" class="form-control"></label>
+                            </div>
+                            <div class="form-group">
+                                <label> Message: </label>
+                                <input class="form-control" placeholder="" value="" disabled="true">
+                            </div>
+                            <div class="form-group">
+                                <label> Status: </label>
+                                <label id="" class="form-control"></label>
+                            </div>
+                        </form>
+                      </div>
+                      <div class = "modal-footer">
+                        <button type ="button" class = "btn btn-default" data-dismiss = "modal"> CLOSE </button>
+                      </div>
+                    </div>
+              </div>
+        </div>
+
+
     <!-- jQuery -->
     <script src="vendor/jquery/jquery.min.js"></script>
 
@@ -208,9 +240,9 @@
                 $('#modalAddComplaint').modal('show');
             });
 
-            // $(document).on('click', '#btnEdit', function(){
-            //     $('#modalEditComplaint').modal('show');
-            // });
+            $(document).on('click', '#btnView', function(){
+                $('#modalViewComplaint').modal('show');
+            });
 
             $(document).on('click', '#btnCancel', function(){
                 $('#modalCancelComplaint').modal('show');
