@@ -113,7 +113,7 @@
 					$stmt->bindParam(':rental_id', $rental_id, PDO::PARAM_INT);
 					$stmt->execute();
 
-					$data = array("success" => "true", "message" => "Termination request sent.");
+					$data = array("success" => "true", "message" => "Termination request sent.", "rental_id" => $rental_id);
 					$results = json_encode($data);
 					echo $results;
 				}

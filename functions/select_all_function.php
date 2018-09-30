@@ -55,4 +55,74 @@
 		$results = json_encode($results);
 		return $results;
 	}
+
+	//t_rooms.php
+	function check_termination(){
+		require("./connection/connection.php");
+		$user_id = $_SESSION['user_id'];
+		$query = "SELECT rental_id FROM rental_tbl WHERE user_id = :user_id AND status = 1";
+		$stmt = $con->prepare($query);
+		$stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+		$stmt->execute();
+		$row = $stmt->fetch();
+		$rowCount = $stmt->rowCount();
+		if($rowCount > 0){
+			$rental_id = $row['rental_id'];
+			$query = "SELECT request_terminate_id FROM request_terminate_tbl WHERE rental_id = :rental_id AND status = 2";
+			$stmt = $con->prepare($query);
+			$stmt->bindParam(':rental_id', $rental_id, PDO::PARAM_INT);
+			$stmt->execute();
+			$rowCount = $stmt->rowCount();
+			if($rowCount > 0){
+				$data = array("success" => "true", "status" => "okay", "message" => "", "rental_id" => $rental_id);
+				$results = json_encode($data);
+				return $results;
+			}
+			else{
+				$data = array("success" => "true", "status" => "not", "message" => "disabled");
+				$results = json_encode($data);
+				return $results;
+			}
+		}
+		else{
+			$data = array("success" => "false", "message" => "Something went wrong. Please try again.");
+			$results = json_encode($data);
+			return $results;
+		}
+	}
+
+	//t_rooms.php
+	function check_change_room(){
+		require("./connection/connection.php");
+		$user_id = $_SESSION['user_id'];
+		$query = "SELECT rental_id FROM rental_tbl WHERE user_id = :user_id AND status = 1";
+		$stmt = $con->prepare($query);
+		$stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+		$stmt->execute();
+		$row = $stmt->fetch();
+		$rowCount = $stmt->rowCount();
+		if($rowCount > 0){
+			$rental_id = $row['rental_id'];
+			$query = "SELECT request_id FROM request_change_room_tbl WHERE current_rental_id = :rental_id AND status = 2";
+			$stmt = $con->prepare($query);
+			$stmt->bindParam(':rental_id', $rental_id, PDO::PARAM_INT);
+			$stmt->execute();
+			$rowCount = $stmt->rowCount();
+			if($rowCount > 0){
+				$data = array("success" => "true", "status" => "okay", "message" => "", "rental_id" => $rental_id);
+				$results = json_encode($data);
+				return $results;
+			}
+			else{
+				$data = array("success" => "true", "status" => "not", "message" => "disabled");
+				$results = json_encode($data);
+				return $results;
+			}
+		}
+		else{
+			$data = array("success" => "false", "message" => "Something went wrong. Please try again.");
+			$results = json_encode($data);
+			return $results;
+		}
+	}
 ?>

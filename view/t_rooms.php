@@ -53,8 +53,16 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">Rooms
-                              <button style = "font-weight:bold;float:right;" class="btn btn-primary" id="btnViewTR">View Termination Request</button>
-                              <button style = "font-weight:bold;float:right;margin-right:5px;" class="btn btn-success" id="btnViewCR">View Change Room Request</button>
+                        <?php
+                            $check_termination = check_termination();
+                            $check_termination = json_decode($check_termination);
+                        ?>
+                        <button style = "font-weight:bold;float:right;" class="btn btn-primary" id="btnViewTR" <?php if($check_termination -> {'success'} == 'true'){ if($check_termination -> {'status'} == 'okay'){ echo 'data-id="' . $check_termination -> {'rental_id'} . '"'; } } ?> <?php if($check_termination -> {'success'} == 'true'){ if($check_termination -> {'status'} == 'not'){ echo $check_termination -> {'message'}; } } else{ echo "<script>alert('".$check_termination -> {'message'}."');</script>"; } ?>>View Termination Request</button>
+                        <?php
+                            $check_change_room = check_change_room();
+                            $check_change_room = json_decode($check_change_room);
+                        ?>
+                        <button style = "font-weight:bold;float:right;margin-right:5px;" class="btn btn-success" id="btnViewCR" <?php if($check_change_room -> {'success'} == 'true'){ if($check_change_room -> {'status'} == 'okay'){ echo 'data-id="' . $check_change_room -> {'rental_id'} . '"'; } } ?> <?php if($check_change_room -> {'success'} == 'true'){ if($check_change_room -> {'status'} == 'not'){ echo $check_change_room -> {'message'}; } } else{ echo "<script>alert('".$check_change_room -> {'message'}."');</script>"; } ?>>View Change Room Request</button>
                     </h1>
                     <div class="floordivider"></div>
                 </div>
@@ -572,10 +580,10 @@
                         <h4 class ="modal-title"> Termination Request </h4>
                       </div>
                       <div class="modal-body">
-                            <p> &emsp; You sent a request to terminate your tenancy last <label> JANUARY 21, 2018 </label>. Do you wish to cancel this request?</p>
+                            <p> &emsp; You sent a request to terminate your tenancy last <label id="dateTerminate"></label>. Do you wish to cancel this request?</p>
                       </div>
                       <div class = "modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal"> CANCEL REQUEST </button>
+                        <button type="button" class="btn btn-danger" id="SubmitCancelTerminate" data-id="<?php if($check_termination -> {'success'} == 'true'){ echo $check_termination -> {'rental_id'}; } ?>" data-dismiss="modal"> CANCEL REQUEST </button>
                         <button type="button" class="btn btn-default" data-dismiss="modal"> CLOSE </button>
                       </div>
                     </div>
@@ -629,7 +637,33 @@
             });
 
             $(document).on('click', '#btnViewTR', function(){
-                $('#modalViewTR').modal('show');
+                var room_view_terminate_request = 'selected';
+                var rental_id = $(this).attr('data-id');
+
+                $.ajax({
+                    url: 'functions/select_function.php',
+                    method: 'POST',
+                    data: {
+                        room_view_terminate_request_data: room_view_terminate_request,
+                        rental_id_view_data: rental_id
+                    },
+                    success: function(data) {
+                        var data = JSON.parse(data);
+                        if(data.success == "true"){
+                            $('#dateTerminate').html(data.date_requested);
+                            $('#modalViewTR').modal('show');
+                            // $('#modalConfirmTerminationRequest').modal('show');
+                            // alert('rental_id ' + data.rental_id);
+                            // alert('user id '+ data.user_id);
+                        }
+                        else if (data.success == "false"){
+                            alert(data.message);
+                        }
+                    },
+                    error: function(xhr) {
+                        console.log(xhr.status + ":" + xhr.statusText);
+                    }
+                });
             });
 
             $(document).on('click', '#btnViewCR', function(){
@@ -800,6 +834,38 @@
                         var data = JSON.parse(data);
                         if(data.success == "true"){
                             alert(data.message);
+                            $("#btnViewTR").removeAttr("disabled");
+                            $('#btnViewTR').attr('data-id', data.rental_id);
+                            // $('#modalConfirmTerminationRequest').modal('show');
+                            // alert('rental_id ' + data.rental_id);
+                            // alert('user id '+ data.user_id);
+                        }
+                        else if (data.success == "false"){
+                            alert(data.message);
+                        }
+                    },
+                    error: function(xhr) {
+                        console.log(xhr.status + ":" + xhr.statusText);
+                    }
+                });
+            });
+
+            $(document).on('click', '#SubmitCancelTerminate', function(){
+                var rental_id = $(this).attr('data-id');
+                var room_cancel_terminate_request = 'selected';
+
+                $.ajax({
+                    url: 'functions/delete_function.php',
+                    method: 'POST',
+                    data: {
+                        room_cancel_terminate_request_data: room_cancel_terminate_request,
+                        rental_id_data: rental_id
+                    },
+                    success: function(data) {
+                        var data = JSON.parse(data);
+                        if(data.success == "true"){
+                            alert(data.message);
+                            $("#btnViewTR").attr("disabled", true);
                             // $('#modalConfirmTerminationRequest').modal('show');
                             // alert('rental_id ' + data.rental_id);
                             // alert('user id '+ data.user_id);
