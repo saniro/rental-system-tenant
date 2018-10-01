@@ -47,7 +47,7 @@
 
 	function complaint_list(){
 		require("./connection/connection.php");
-		$query = "SELECT complaint_id, message, DATE_FORMAT(message_date, '%M %d, %Y') AS message_date, (CASE WHEN status = 1 THEN 'Not yet read' WHEN status = 2 THEN 'Read' END) AS status FROM complaint_tbl WHERE user_id = 2";
+		$query = "SELECT complaint_id, message, DATE_FORMAT(message_date, '%M %d, %Y') AS message_date, (CASE WHEN status = 1 THEN 'Not yet read' WHEN status = 2 THEN 'Read' END) AS status FROM complaint_tbl WHERE user_id = 2 AND flag = 1";
 		$stmt = $con->prepare($query);
 		//$stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
 		$stmt->execute();

@@ -86,9 +86,9 @@
                                             <td><?php echo $value -> {'status'}; ?></td>
                                             <td class="center">
                                                 <center>
-                                                    <button data-toggle="tooltip" title="View Full Details" class="btn btn-info"><span class="fa fa-file-text-o"></span></button>
+                                                    <button data-toggle="tooltip" title="View Full Details" class="btn btn-info" id="btnView" data-id="<?php echo $value -> {'complaint_id'}; ?>"><span class="fa fa-file-text-o"></span></button>
                                                    <!--  <button data-toggle="tooltip" title="Edit Complaint" class="btn btn-success" id="btnEdit"><span class="fa fa-edit"></span></button> -->
-                                                    <button data-toggle="tooltip" title="Cancel Complaint" class="btn btn-danger" id="btnCancel"><span class="glyphicon glyphicon-remove"></span></button>
+                                                    <button data-toggle="tooltip" title="Cancel Complaint" class="btn btn-danger" id="btnCancel" data-id="<?php echo $value -> {'complaint_id'}; ?>"><span class="glyphicon glyphicon-remove"></span></button>
                                                 </center>
                                             </td>
                                         </tr>
@@ -149,15 +149,16 @@
                         <form>
                             <div class="form-group">
                                 <label> ID: </label>
-                                <label id="" class="form-control"></label>
+                                <label id="c_complaint_id" class="form-control"></label>
                             </div>
                             <div class="form-group">
                                 <label> Date: </label>
-                                <label id="" class="form-control"></label>
+                                <label id="c_complaint_date" class="form-control"></label>
                             </div>
                             <div class="form-group">
                                 <label> Message: </label>
-                                <input class="form-control" placeholder="" value="" disabled="true">
+                                <textarea id="c_complaint_message" class ="form-control" disabled></textarea>
+                                <!-- <input class="form-control" placeholder="" value="" disabled="true"> -->
                             </div>
                       </form>
                       
@@ -166,7 +167,7 @@
                       <br>
                       </div>
                       <div class = "modal-footer">
-                        <button type="button" class = "btn btn-danger" data-dismiss = "modal">CANCEL COMPLAINT </button>
+                        <button type="button" class = "btn btn-danger" id="SubmitCancelComplaint" data-dismiss = "modal">CANCEL COMPLAINT </button>
                         <button type ="button" class = "btn btn-default" data-dismiss = "modal"> CLOSE </button>
                       </div>
                     </div>
@@ -188,19 +189,27 @@
                         <form>
                             <div class="form-group">
                                 <label> ID: </label>
-                                <label id="" class="form-control"></label>
+                                <label id="v_complaint_id" class="form-control"></label>
                             </div>
                             <div class="form-group">
                                 <label> Date: </label>
-                                <label id="" class="form-control"></label>
+                                <label id="v_complaint_date" class="form-control"></label>
                             </div>
                             <div class="form-group">
                                 <label> Message: </label>
-                                <input class="form-control" placeholder="" value="" disabled="true">
+                                <textarea id="v_message" class="form-control" placeholder="" value="" disabled></textarea>
                             </div>
                             <div class="form-group">
                                 <label> Status: </label>
-                                <label id="" class="form-control"></label>
+                                <label id="v_status" class="form-control"></label>
+                            </div>
+                            <div class="form-group">
+                                <label> Date Responded: </label>
+                                <label id="v_replied_date" class="form-control"></label>
+                            </div>
+                            <div class="form-group">
+                                <label> Response: </label>
+                                <textarea id="v_response" class="form-control" placeholder="" value="" disabled></textarea>
                             </div>
                         </form>
                       </div>
@@ -232,6 +241,7 @@
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
     <script>
         $(document).ready(function() {
+            var table_row;
             $('#contents').DataTable({
                 responsive: true
             });
@@ -241,11 +251,68 @@
             });
 
             $(document).on('click', '#btnView', function(){
-                $('#modalViewComplaint').modal('show');
+                var complaint_id = $(this).attr('data-id');
+                var view_complaint_details = 'selected';
+
+                $.ajax({
+                    url: 'functions/select_function.php',
+                    method: 'POST',
+                    data: {
+                        view_complaint_details_data: view_complaint_details,
+                        complaint_id_data: complaint_id
+                    },
+                    success: function(data) {
+                        var data = JSON.parse(data);
+                        var table = $("#contents").DataTable();
+                        if(data.success == "true"){
+                            $('#v_complaint_id').html(data.complaint_id);
+                            $('#v_complaint_date').html(data.message_date);
+                            $('#v_message').html(data.message);
+                            $('#v_status').html(data.status);
+                            $('#v_replied_date').html(data.response_date);
+                            $('#v_response').html(data.response);
+
+                            $('#modalViewComplaint').modal('show');
+                        }
+                        else if (data.success == "false"){
+                            alert(data.message);
+                        }
+                    },
+                    error: function(xhr) {
+                        console.log(xhr.status + ":" + xhr.statusText);
+                    }
+                });
             });
 
             $(document).on('click', '#btnCancel', function(){
-                $('#modalCancelComplaint').modal('show');
+                var complaint_id = $(this).attr('data-id');
+                var view_complaint = 'selected';
+                table_row = $(this).parents('tr');
+                $.ajax({
+                    url: 'functions/select_function.php',
+                    method: 'POST',
+                    data: {
+                        view_complaint_data: view_complaint,
+                        complaint_id_data: complaint_id
+                    },
+                    success: function(data) {
+                        var data = JSON.parse(data);
+                        var table = $("#contents").DataTable();
+                        if(data.success == "true"){
+                            $('#c_complaint_id').html(data.complaint_id);
+                            $('#c_complaint_date').html(data.message_date);
+                            $('#c_complaint_message').html(data.message);
+                            $('#SubmitCancelComplaint').attr('data-id', data.complaint_id);
+                            $('#modalCancelComplaint').modal('show');
+                        }
+                        else if (data.success == "false"){
+                            alert(data.message);
+                        }
+                    },
+                    error: function(xhr) {
+                        console.log(xhr.status + ":" + xhr.statusText);
+                    }
+                });
             });
 
             $(document).on('click', '#SubmitAdd', function(){
@@ -270,6 +337,33 @@
                                 data.status,
                                 buttons
                             ]).draw(true);
+                            alert(data.message);
+                        }
+                        else if (data.success == "false"){
+                            alert(data.message);
+                        }
+                    },
+                    error: function(xhr) {
+                        console.log(xhr.status + ":" + xhr.statusText);
+                    }
+                });
+            });
+
+            $(document).on('click', '#SubmitCancelComplaint', function(){
+                var complaint_id = $(this).attr('data-id');
+                var delete_complaint = 'selected';
+                $.ajax({
+                    url: 'functions/delete_function.php',
+                    method: 'POST',
+                    data: {
+                        delete_complaint_data: delete_complaint,
+                        complaint_id_data: complaint_id
+                    },
+                    success: function(data) {
+                        var data = JSON.parse(data);
+                        if(data.success == "true"){
+                            var table = $("#contents").DataTable();
+                            table.row( table_row ).remove().draw();
                             alert(data.message);
                         }
                         else if (data.success == "false"){

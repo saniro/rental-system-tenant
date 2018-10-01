@@ -601,10 +601,10 @@
                         <h4 class ="modal-title"> Change Room Request </h4>
                       </div>
                       <div class="modal-body">
-                            <p> &emsp; You sent a request to transfer from <label> ROOM 04 </label> to <label> ROOM 08 </label> last <label> JANUARY 21, 2018 </label>. Do you wish to cancel this request?</p>
+                            <p> &emsp; You sent a request to transfer from <label id="c_current_room"></label> to <label id="c_requested_room"></label> last <label id="c_date_requested"></label>. Do you wish to cancel this request?</p>
                       </div>
                       <div class = "modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal"> CANCEL REQUEST </button>
+                        <button type="button" class="btn btn-danger" id="SubmitCancelRequestChange" data-id="<?php if($check_change_room -> {'success'} == 'true'){ echo $check_change_room -> {'rental_id'}; } ?>" data-dismiss="modal"> CANCEL REQUEST </button>
                         <button type="button" class="btn btn-default" data-dismiss="modal"> CLOSE </button>
                       </div>
                     </div>
@@ -667,7 +667,32 @@
             });
 
             $(document).on('click', '#btnViewCR', function(){
-                $('#modalViewCR').modal('show');
+                var room_view_change_room_request = 'selected';
+                var rental_id = $(this).attr('data-id');
+
+                $.ajax({
+                    url: 'functions/select_function.php',
+                    method: 'POST',
+                    data: {
+                        room_view_change_room_request_data: room_view_change_room_request,
+                        rental_id_data: rental_id
+                    },
+                    success: function(data) {
+                        var data = JSON.parse(data);
+                        if(data.success == "true"){
+                            $('#c_current_room').html(data.current_room);
+                            $('#c_requested_room').html(data.requested_room);
+                            $('#c_date_requested').html(data.date_requested);
+                            $('#modalViewCR').modal('show');
+                        }
+                        else if (data.success == "false"){
+                            alert(data.message);
+                        }
+                    },
+                    error: function(xhr) {
+                        console.log(xhr.status + ":" + xhr.statusText);
+                    }
+                });
             });
 
             $(document).on('click', '.room', function(){
@@ -880,6 +905,36 @@
                 });
             });
 
+            $(document).on('click', '#SubmitCancelRequestChange', function(){
+                var rental_id = $(this).attr('data-id');
+                var room_cancel_change_room_request = 'selected';
+
+                $.ajax({
+                    url: 'functions/delete_function.php',
+                    method: 'POST',
+                    data: {
+                        room_cancel_change_room_request_data: room_cancel_change_room_request,
+                        rental_id_data: rental_id
+                    },
+                    success: function(data) {
+                        var data = JSON.parse(data);
+                        if(data.success == "true"){
+                            alert(data.message);
+                            $("#btnViewCR").attr("disabled", true);
+                            // $('#modalConfirmTerminationRequest').modal('show');
+                            // alert('rental_id ' + data.rental_id);
+                            // alert('user id '+ data.user_id);
+                        }
+                        else if (data.success == "false"){
+                            alert(data.message);
+                        }
+                    },
+                    error: function(xhr) {
+                        console.log(xhr.status + ":" + xhr.statusText);
+                    }
+                });
+            });
+            
             $('[data-toggle="tooltip"]').tooltip();
         });
     </script>
