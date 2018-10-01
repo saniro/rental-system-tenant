@@ -79,10 +79,6 @@
 	}
 
 
-
-
-
-
 	if(isset($_POST['tenant_delete_data'])){
 		$user_id = $_POST['tenant_id_data'];
 		$query = "UPDATE user_tbl 
