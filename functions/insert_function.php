@@ -148,7 +148,7 @@
 			$stmt->bindParam(':last_inserted_id', $lastInsertedID, PDO::PARAM_INT);
 			$stmt->execute();
 			$row = $stmt->fetch();
-			$data = array("success" => "true", "message" => "Your complaint has been sent.", "complaint_id" => $row['complaint_id'], "message_date" => $row['message_date'], "message_send" => $row['message'], "status" => $row['status']);
+			$data = array("success" => "true", "message" => "Your complaint has been sent.", "complaint_id" => $lastInsertedID, "message_date" => $row['message_date'], "message_send" => $row['message'], "status" => $row['status'], "buttons" => '<center><button data-toggle="tooltip" title="View Full Details" class="btn btn-info" id="btnView" data-id="'.$lastInsertedID.'"><span class="fa fa-file-text-o"></span></button> <button data-toggle="tooltip" title="Cancel Complaint" class="btn btn-danger" id="btnCancel" data-id="'.$lastInsertedID.'"><span class="glyphicon glyphicon-remove"></span></button></center>');
 			$results = json_encode($data);
 			echo $results;
 		}

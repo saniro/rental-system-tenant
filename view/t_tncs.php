@@ -66,19 +66,24 @@
                             <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 <thead>
                                     <tr>
-                                        <th>House Rule ID</th>
+                                        <th>ID</th>
                                         <th>Description</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                <?php
+                                    $all_rules = rules_list();
+                                    $all_rules = json_decode($all_rules);
+
+                                    foreach ($all_rules as $value) {
+                                    ?>
                                     <tr class="odd gradeX">
-                                        <td>1</td>
-                                        <td>No pets are allowed inside the building except for some specific pets such as fishes. Pets such as dogs must be kept outside the building to avoid disturbing the neighborhood.</td>
+                                        <td><?php echo $value -> {'rules_id'}; ?></td>
+                                        <td style="width: 90%;"><?php echo $value -> {'description'}; ?></td>
                                     </tr>
-                                    <tr class="odd gradeX">
-                                        <td>2</td>
-                                        <td>Transferring of room is allowed only upon approval of change room request. Transferring of stuffs must be done the next day after approval.</td>
-                                    </tr>
+                                <?php
+                                    }
+                                ?>
                                 </tbody>
                             </table>
                         </div>

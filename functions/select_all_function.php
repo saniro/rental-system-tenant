@@ -47,9 +47,10 @@
 
 	function complaint_list(){
 		require("./connection/connection.php");
-		$query = "SELECT complaint_id, message, DATE_FORMAT(message_date, '%M %d, %Y') AS message_date, (CASE WHEN status = 1 THEN 'Not yet read' WHEN status = 2 THEN 'Read' END) AS status FROM complaint_tbl WHERE user_id = 2 AND flag = 1";
+		$user_id = $_SESSION['user_id'];
+		$query = "SELECT complaint_id, message, DATE_FORMAT(message_date, '%M %d, %Y') AS message_date, (CASE WHEN status = 1 THEN 'Not yet read' WHEN response IS NULL AND status = 2 THEN 'Read' ELSE 'Responded' END) AS status FROM complaint_tbl WHERE user_id = :user_id AND flag = 1";
 		$stmt = $con->prepare($query);
-		//$stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+		$stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
 		$stmt->execute();
 		$results = $stmt->fetchAll();
 		$results = json_encode($results);
@@ -124,5 +125,15 @@
 			$results = json_encode($data);
 			return $results;
 		}
+	}
+
+	function rules_list(){
+		require("./connection/connection.php");
+		$query = "SELECT rules_id, description FROM rules_tbl WHERE flag = 1";
+		$stmt = $con->prepare($query);
+		$stmt->execute();
+		$results = $stmt->fetchAll();
+		$results = json_encode($results);
+		return $results;
 	}
 ?>

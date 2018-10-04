@@ -172,7 +172,7 @@
 			$row = $stmt->fetch();
 			$rowCount = $stmt->rowCount();
 			if($rowCount > 0){
-				$query = "SELECT complaint_id, DATE_FORMAT(message_date, '%M %d, %Y') AS message_date, message, (CASE WHEN status = 1 THEN 'Not yet read' WHEN status = 2 THEN 'Read' END) AS status, response, DATE_FORMAT(response_date, '%M %d, %Y') AS response_date FROM complaint_tbl AS REM WHERE complaint_id = :complaint_id";
+				$query = "SELECT complaint_id, DATE_FORMAT(message_date, '%M %d, %Y') AS message_date, message, (CASE WHEN status = 1 THEN 'Not yet read' WHEN response IS NULL AND status = 2 THEN 'Read' ELSE 'Responded' END) AS status, response, DATE_FORMAT(response_date, '%M %d, %Y') AS response_date FROM complaint_tbl AS REM WHERE complaint_id = :complaint_id";
 				$stmt = $con->prepare($query);
 				$stmt->bindParam(':complaint_id', $complaint_id, PDO::PARAM_INT);
 				$stmt->execute();

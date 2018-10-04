@@ -87,8 +87,11 @@
                                             <td class="center">
                                                 <center>
                                                     <button data-toggle="tooltip" title="View Full Details" class="btn btn-info" id="btnView" data-id="<?php echo $value -> {'complaint_id'}; ?>"><span class="fa fa-file-text-o"></span></button>
-                                                   <!--  <button data-toggle="tooltip" title="Edit Complaint" class="btn btn-success" id="btnEdit"><span class="fa fa-edit"></span></button> -->
+                                                    <?php if($value -> {'status'} != 'Responded'){?>
                                                     <button data-toggle="tooltip" title="Cancel Complaint" class="btn btn-danger" id="btnCancel" data-id="<?php echo $value -> {'complaint_id'}; ?>"><span class="glyphicon glyphicon-remove"></span></button>
+                                                    <?php
+                                                        }
+                                                    ?>
                                                 </center>
                                             </td>
                                         </tr>
@@ -121,12 +124,10 @@
                     <h4 class ="modal-title"> Send New Complaint </h4>
                   </div>
                   <div class="modal-body">
-                    <form>
                       <div class = "form-group">
                         <label> Message: </label>
                         <textarea id="s_message" class="form-control" placeholder="Describe here..."></textarea>
                       </div>
-                    </form>
                   </div>
                   <div class = "modal-footer">
                     <button type ="button" class= "btn btn-primary" data-dismiss="modal" id="SubmitAdd">SEND </button>
@@ -329,13 +330,12 @@
                         var data = JSON.parse(data);
                         var table = $("#contents").DataTable();
                         if(data.success == "true"){
-                            var buttons = '<center><button data-toggle="tooltip" title="View Full Details" class="btn btn-info"><span class="fa fa-file-text-o"></span></button><button data-toggle="tooltip" title="Cancel Complaint" class="btn btn-danger" id="btnCancel"><span class="glyphicon glyphicon-remove"></span></button></center>';
                             table.row.add([
                                 data.complaint_id,
                                 data.message_date,
                                 data.message_send,
                                 data.status,
-                                buttons
+                                data.buttons
                             ]).draw(true);
                             alert(data.message);
                         }
