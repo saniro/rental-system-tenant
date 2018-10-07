@@ -135,10 +135,12 @@
 	if(isset($_POST['complaint_send_data'])){
 		$message = $_POST['message_data'];
 		$user_id = $_SESSION['user_id'];
+		$room_id = $_SESSION['room_id'];
 		if($message != NULL){
-			$query = "INSERT INTO complaint_tbl (user_id, message, message_date) VALUES (:user_id, :message, CURDATE())";
+			$query = "INSERT INTO complaint_tbl (user_id, room_id, message, message_date) VALUES (:user_id, :room_id, :message, CURDATE())";
 			$stmt = $con->prepare($query);
 			$stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+			$stmt->bindParam(':room_id', $room_id, PDO::PARAM_INT);
 			$stmt->bindParam(':message', $message, PDO::PARAM_STR);
 			$stmt->execute();
 			$lastInsertedID = $con->lastInsertId();
