@@ -64,24 +64,72 @@
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                            <table width="100%" class="table table-striped table-bordered table-hover" id="tblpaymenthistory">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Date</th>
-                                        <th>Amount Paid</th>
-                                        <th>Current Balance</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="odd gradeX">
-                                        <td>1</td>
-                                        <td>Jan 28 2019</td>
-                                        <td>10000</td>
-                                        <td>3000</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+
+
+                        <div class="panel-body">
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#room" data-toggle="tab">Room Rental</a>
+                                </li>
+                                <li><a href="#uti" data-toggle="tab">Utility Bills</a>
+                                </li>
+                            </ul>
+
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <div class="tab-pane fade in active" id="room">
+                                    <br>
+                                    <table width="100%" class="table table-striped table-bordered table-hover" id="tblroomph">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Due Date</th>
+                                                <th>Date of Payment</th>
+                                                <th>Amount Paid</th>
+                                                <th>Current Balance</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="odd gradeX">
+                                                <td>1</td>
+                                                <td>Jan 28 2019</td>
+                                                <td>Jan 28 2019</td>
+                                                <td>10000</td>
+                                                <td>3000</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="tab-pane fade" id="uti">
+                                    <br>
+                                    <table width="100%" class="table table-striped table-bordered table-hover" id="tblutiph">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Due Date</th>
+                                            <th>Date of Payment</th>
+                                            <th>Utility Bill Type</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="odd gradeX">
+                                            <td>1</td>
+                                            <td>January 02, 2019</td>
+                                            <td>Jan 28 2019</td>
+                                            <td>Electricity Consumption Bill</td>
+                                            <td>Not Paid</td>
+                                        </tr>
+                                    </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.panel-body -->
+
+
+
+
                         </div>
                     </div>
                     <!-- /.panel -->
@@ -116,7 +164,10 @@
     <script>
     $(document).ready(function() {
 
-        $('#tblpaymenthistory').DataTable({
+        $('#tblroomph').DataTable({
+            responsive: true
+        });
+        $('#tblutiph').DataTable({
             responsive: true
         });
         

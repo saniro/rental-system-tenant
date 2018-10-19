@@ -1,10 +1,10 @@
 <?php
 	require("../connection/connection.php");
-
+	session_start();
 	//t_rooms.php
 	if(isset($_POST['room_new_transfer_request_data'])){
 		$room_id = $_POST['room_id_data'];
-		$user_id = $_POST['user_id_data'];
+		$user_id = $_SESSION['user_id'];
 
 		if(($room_id != NULL) && ($user_id != NULL)){
 			$query_check = "SELECT room_id, room_name FROM room_tbl WHERE room_id = :room_id";

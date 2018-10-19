@@ -14,9 +14,12 @@
 		case 'notifications':
 			require("view/t_notifications.php");
 			break;
-		case 'rooms':
-			require("view/t_rooms.php");
+		case 'roomstable':
+			require("view/t_roomstable.php");
 			break;
+		// case 'rooms':
+		// 	require("view/t_rooms.php");
+		// 	break;
 		case 'payments':
 			require("view/t_payments.php");
 			break;

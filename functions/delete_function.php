@@ -4,7 +4,7 @@
 
 	//t_rooms.php for termination request
 	if(isset($_POST['room_cancel_terminate_request_data'])){
-		$rental_id = $_POST['rental_id_data'];
+		$rental_id = $_SESSION['rental_id'];
 		$user_id = $_SESSION['user_id'];
 		if($rental_id != NULL){
 			$query_check = "SELECT request_terminate_id FROM request_terminate_tbl AS RE WHERE rental_id = :rental_id AND (SELECT user_id FROM rental_tbl AS RL WHERE RL.rental_id = RE.rental_id) = :user_id AND status = 2";
@@ -42,7 +42,7 @@
 
 	//t_rooms.php for change room request
 	if(isset($_POST['room_cancel_change_room_request_data'])){
-		$rental_id = $_POST['rental_id_data'];
+		$rental_id = $_SESSION['rental_id'];
 		$user_id = $_SESSION['user_id'];
 		if($rental_id != NULL){
 			$query_check = "SELECT request_id FROM request_change_room_tbl AS REM WHERE current_rental_id = :rental_id AND (SELECT user_id FROM rental_tbl AS RL WHERE RL.rental_id = REM.current_rental_id) = :user_id AND status = 2";

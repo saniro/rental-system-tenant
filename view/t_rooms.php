@@ -812,17 +812,13 @@
             });
 
             $(document).on('click', '#SubmitTerminate', function(){
-                var room_id = $(this).attr('data-id');
-                var user_id = <?php echo $_SESSION['user_id']; ?>;
                 var room_confirm_terminate_request = 'selected';
 
                 $.ajax({
                     url: 'functions/select_function.php',
                     method: 'POST',
                     data: {
-                        room_confirm_terminate_request_data: room_confirm_terminate_request,
-                        room_id_data: room_id,
-                        user_id_data: user_id
+                        room_confirm_terminate_request_data: room_confirm_terminate_request
                     },
                     success: function(data) {
                         var data = JSON.parse(data);

@@ -49,7 +49,7 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Payments</h1>
+                    <h1 class="page-header">Monthly Payments</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -66,115 +66,55 @@
                         <div class="panel-body">
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs">
-                                <li class="active"><a href="#general" data-toggle="tab">General</a>
+                                <li class="active"><a href="#room" data-toggle="tab">Room Rental</a>
                                 </li>
-                                <li><a href="#room" data-toggle="tab">Room Rental</a>
-                                </li>
-                                <li><a href="#electricity" data-toggle="tab">Electricity Consumption</a>
-                                </li>
-                                <li><a href="#water" data-toggle="tab">Water Consumption</a>
+                                <li><a href="#uti" data-toggle="tab">Utility Bills</a>
                                 </li>
                             </ul>
 
                             <!-- Tab panes -->
                             <div class="tab-content">
-                                <div class="tab-pane fade in active" id="general">
+                                <div class="tab-pane fade in active" id="room">
                                     <br>
-                                    <table width="100%" class="table table-striped table-bordered table-hover" id="tblgeneral">
-                                <thead>
-                                    <tr>
-                                        <th>Month</th>
-                                        <th>Year</th>
-                                        <th>Room Rental Cost</th>
-                                        <th>Electricity Consumption Cost</th>
-                                        <th>Water Consumption Cost</th>
-                                        <th>Total Cost</th>
-                                        <th>Amount Paid</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="odd gradeX">
-                                        <td>January</td>
-                                        <td>2019</td>
-                                        <td>10000</td>
-                                        <td>2000</td>
-                                        <td>1000</td>
-                                        <td>13000</td>
-                                        <td>10000</td>
-                                        <td>Not Paid</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                    <table width="100%" class="table table-striped table-bordered table-hover" id="tblroommp">
+                                    <thead>
+                                        <tr>
+                                            <th>Due Date</th>
+                                            <th>Room Rental Cost</th>
+                                            <th>Amount Paid</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="odd gradeX">
+                                            <td>January 02, 2019</td>
+                                            <td>10000</td>
+                                            <td>10000</td>
+                                            <td>Paid</td>
+                                        </tr>
+                                    </tbody>
+                                    </table>
                                 </div>
-                                <div class="tab-pane fade" id="room">
+                                <div class="tab-pane fade" id="uti">
                                     <br>
-                                    <table width="100%" class="table table-striped table-bordered table-hover" id="tblroom">
-                                <thead>
-                                    <tr>
-                                        <th>Month</th>
-                                        <th>Year</th>
-                                        <th>Room Rental Cost</th>
-                                        <th>Amount Paid</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="odd gradeX">
-                                        <td>January</td>
-                                        <td>2019</td>
-                                        <td>10000</td>
-                                        <td>10000</td>
-                                        <td>Paid</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                                </div>
-                                <div class="tab-pane fade" id="electricity">
-                                    <br>
-                                    <table width="100%" class="table table-striped table-bordered table-hover" id="tblelectricity">
-                                <thead>
-                                    <tr>
-                                        <th>Month</th>
-                                        <th>Year</th>
-                                        <th>Electricity Consumption Cost</th>
-                                        <th>Amount Paid</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="odd gradeX">
-                                        <td>January</td>
-                                        <td>2019</td>
-                                        <td>2000</td>
-                                        <td>0</td>
-                                        <td>Not Paid</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                                </div>
-                                <div class="tab-pane fade" id="water">
-                                    <br>
-                                    <table width="100%" class="table table-striped table-bordered table-hover" id="tblwater">
-                                <thead>
-                                    <tr>
-                                        <th>Month</th>
-                                        <th>Year</th>
-                                        <th>Water Consumption Cost</th>
-                                        <th>Amount Paid</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="odd gradeX">
-                                        <td>January</td>
-                                        <td>2019</td>
-                                        <td>1000</td>
-                                        <td>0</td>
-                                        <td>Not Paid</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                    <table width="100%" class="table table-striped table-bordered table-hover" id="tblutimp">
+                                    <thead>
+                                        <tr>
+                                            <th>Due Date</th>
+                                            <th>Utility Bill Type</th>
+                                            <th>Description</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="odd gradeX">
+                                            <td>January 02, 2019</td>
+                                            <td>Electricity Consumption Bill</td>
+                                            <td style="width:50%;">Payment for electricity consumption. Amount computed from submeter readings and meralco bill.</td>
+                                            <td>Not Paid</td>
+                                        </tr>
+                                    </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -217,16 +157,11 @@
     <script>
     $(document).ready(function() {
 
-        $('#tblgeneral').DataTable({
+       
+        $('#tblroommp').DataTable({
             responsive: true
         });
-        $('#tblroom').DataTable({
-            responsive: true
-        });
-        $('#tblelectricity').DataTable({
-            responsive: true
-        });
-        $('#tblwater').DataTable({
+        $('#tblutimp').DataTable({
             responsive: true
         });
         

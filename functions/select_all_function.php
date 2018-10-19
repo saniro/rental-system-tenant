@@ -137,4 +137,16 @@
 		$results = json_encode($results);
 		return $results;
 	}
+
+	function all_rooms(){
+		require("./connection/connection.php");
+		$query = "SELECT room_id, room_name, rent_rate, room_description, (CASE WHEN (SELECT rental_id FROM rental_tbl AS RL WHERE RL.room_id = RM.room_id AND status = 1) IS NULL THEN 'Vacant' ELSE 'Occupied' END) AS status FROM room_tbl AS RM WHERE apartment_id = :apartment_id AND flag = 1";
+		$stmt = $con->prepare($query);
+		$stmt->bindParam(':apartment_id', $_SESSION['user_apartment_id'], PDO::PARAM_INT);
+		$stmt->execute();
+		$results = $stmt->fetchAll();
+		$rowCount = $stmt->rowCount();
+		$results = json_encode($results);
+		return $results;
+	}
 ?>

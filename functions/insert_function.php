@@ -4,7 +4,7 @@
 	//t_rooms.php
 	if(isset($_POST['room_transfer_request_data'])){
 		$room_id = $_POST['room_id_data'];
-		$user_id = $_POST['user_id_data'];
+		$user_id = $_SESSION['user_id'];
 
 		if(($room_id != NULL) && ($user_id != NULL)){
 			$query_check = "SELECT room_id, room_name FROM room_tbl WHERE room_id = :room_id";
@@ -84,48 +84,25 @@
 
 	//t_rooms.php for termination request
 	if(isset($_POST['room_terminate_request_data'])){
-		$room_id = $_POST['room_id_data'];
-		$user_id = $_POST['user_id_data'];
+		$rental_id = $_SESSION['rental_id'];
 
-		if(($room_id != NULL) OR ($user_id != NULL)){
-			$query_check = "SELECT rental_id FROM rental_tbl WHERE user_id = :user_id AND room_id = :room_id AND status = 1";
-			$stmt = $con->prepare($query_check);
-			$stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
-			$stmt->bindParam(':room_id', $room_id, PDO::PARAM_INT);
-			$stmt->execute();
-			$row = $stmt->fetch();
-			$rowCount = $stmt->rowCount();
-			if($rowCount > 0){
-				$rental_id = $row['rental_id'];
-				$query_check = "SELECT request_terminate_id FROM request_terminate_tbl WHERE rental_id = :rental_id AND status = 2";
-				$stmt = $con->prepare($query_check);
-				$stmt->bindParam(':rental_id', $rental_id, PDO::PARAM_INT);
-				$stmt->execute();
-				$rowCount = $stmt->rowCount();
-				if($rowCount > 0){
-					$data = array("success" => "false", "message" => "You have already made a request for termination. Please wait for further announcement.");
-					$results = json_encode($data);
-					echo $results;
-				}
-				else{
-					$query = "INSERT INTO request_terminate_tbl (rental_id, date_requested) VALUES (:rental_id, CURDATE())";
-					$stmt = $con->prepare($query);
-					$stmt->bindParam(':rental_id', $rental_id, PDO::PARAM_INT);
-					$stmt->execute();
-
-					$data = array("success" => "true", "message" => "Termination request sent.", "rental_id" => $rental_id);
-					$results = json_encode($data);
-					echo $results;
-				}
-			}
-			else{
-				$data = array("success" => "false", "message" => "Something went wrong. Please try again.");
-				$results = json_encode($data);
-				echo $results;
-			}
+		$query_check = "SELECT request_terminate_id FROM request_terminate_tbl WHERE rental_id = :rental_id AND status = 2";
+		$stmt = $con->prepare($query_check);
+		$stmt->bindParam(':rental_id', $rental_id, PDO::PARAM_INT);
+		$stmt->execute();
+		$rowCount = $stmt->rowCount();
+		if($rowCount > 0){
+			$data = array("success" => "false", "message" => "You have already made a request for termination. Please wait for further announcement.");
+			$results = json_encode($data);
+			echo $results;
 		}
 		else{
-			$data = array("success" => "false", "message" => "Required fields must not be empty.");
+			$query = "INSERT INTO request_terminate_tbl (rental_id, date_requested) VALUES (:rental_id, CURDATE())";
+			$stmt = $con->prepare($query);
+			$stmt->bindParam(':rental_id', $rental_id, PDO::PARAM_INT);
+			$stmt->execute();
+
+			$data = array("success" => "true", "message" => "Termination request sent.", "rental_id" => $rental_id);
 			$results = json_encode($data);
 			echo $results;
 		}
