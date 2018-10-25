@@ -149,4 +149,16 @@
 		$results = json_encode($results);
 		return $results;
 	}
+
+	function m_payment(){
+		require("./connection/connection.php");
+		$query = "SELECT DATE_FORMAT(due_date, '%M %d, %Y') AS due_date, payables FROM monthly_rent_tbl WHERE rental_id = :rental_id AND status = 1";
+		$stmt = $con->prepare($query);
+		$stmt->bindParam(':rental_id', $_SESSION["rental_id"], PDO::PARAM_INT);
+		$stmt->execute();
+		$results = $stmt->fetchAll();
+		$rowCount = $stmt->rowCount();
+		$results = json_encode($results);
+		return $results;
+	}
 ?>

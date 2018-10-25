@@ -81,17 +81,22 @@
                                         <tr>
                                             <th>Due Date</th>
                                             <th>Room Rental Cost</th>
-                                            <th>Amount Paid</th>
-                                            <th>Status</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                    <?php
+                                        $m_payment = m_payment();
+                                        $m_payment = json_decode($m_payment);
+
+                                        foreach ($m_payment as $value) {
+                                        ?>
                                         <tr class="odd gradeX">
-                                            <td>January 02, 2019</td>
-                                            <td>10000</td>
-                                            <td>10000</td>
-                                            <td>Paid</td>
+                                            <td><?php echo $value -> {'due_date'}; ?></td>
+                                            <td><?php echo $value -> {'payables'}; ?></td>
                                         </tr>
+                                        <?php
+                                        }
+                                    ?>
                                     </tbody>
                                     </table>
                                 </div>
@@ -107,6 +112,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                    
                                         <tr class="odd gradeX">
                                             <td>January 02, 2019</td>
                                             <td>Electricity Consumption Bill</td>
