@@ -5,6 +5,7 @@
 	if(isset($_POST['room_transfer_request_data'])){
 		$room_id = $_POST['room_id_data'];
 		$user_id = $_SESSION['user_id'];
+		$apartment_id = $_SESSION["user_apartment_id"];
 
 		if(($room_id != NULL) && ($user_id != NULL)){
 			$query_check = "SELECT room_id, room_name FROM room_tbl WHERE room_id = :room_id";
@@ -51,8 +52,9 @@
 						}
 					}
 					else{
-						$query = "INSERT INTO request_change_room_tbl (user_id, current_rental_id, requested_room, date_requested) VALUES (:user_id, :rental_id, :room_id, CURDATE())";
+						$query = "INSERT INTO request_change_room_tbl (apartment_id, user_id, current_rental_id, requested_room, date_requested) VALUES (:apartment_id, :user_id, :rental_id, :room_id, CURDATE())";
 						$stmt = $con->prepare($query);
+						$stmt->bindParam(':apartment_id', $apartment_id, PDO::PARAM_INT);
 						$stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
 						$stmt->bindParam(':rental_id', $rental_id, PDO::PARAM_INT);
 						$stmt->bindParam(':room_id', $room_id, PDO::PARAM_INT);
@@ -85,6 +87,7 @@
 	//t_rooms.php for termination request
 	if(isset($_POST['room_terminate_request_data'])){
 		$rental_id = $_SESSION['rental_id'];
+		$apartment_id = $_SESSION["user_apartment_id"];
 
 		$query_check = "SELECT request_terminate_id FROM request_terminate_tbl WHERE rental_id = :rental_id AND status = 2";
 		$stmt = $con->prepare($query_check);
@@ -97,8 +100,9 @@
 			echo $results;
 		}
 		else{
-			$query = "INSERT INTO request_terminate_tbl (rental_id, date_requested) VALUES (:rental_id, CURDATE())";
+			$query = "INSERT INTO request_terminate_tbl (apartment_id, rental_id, date_requested) VALUES (:apartment_id, :rental_id, CURDATE())";
 			$stmt = $con->prepare($query);
+			$stmt->bindParam(':apartment_id', $apartment_id, PDO::PARAM_INT);
 			$stmt->bindParam(':rental_id', $rental_id, PDO::PARAM_INT);
 			$stmt->execute();
 
