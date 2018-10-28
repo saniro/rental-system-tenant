@@ -129,9 +129,9 @@
 
 	function rules_list(){
 		require("./connection/connection.php");
-		$query = "SELECT rules_id, description FROM rules_tbl WHERE apartment_id = :apartment_id AND flag = 1";
+		$query = "SELECT rules_id, description FROM rules_tbl WHERE host_id = :host_id AND flag = 1";
 		$stmt = $con->prepare($query);
-		$stmt->bindParam(':apartment_id', $_SESSION['user_apartment_id'], PDO::PARAM_INT);
+		$stmt->bindParam(':host_id', $_SESSION['user_apartment_id'], PDO::PARAM_INT);
 		$stmt->execute();
 		$results = $stmt->fetchAll();
 		$results = json_encode($results);

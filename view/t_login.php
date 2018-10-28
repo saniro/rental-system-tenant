@@ -94,7 +94,7 @@
 
                         if(data.success == "true"){
                             alert("Welcome " + data.first_name + "!");
-                            window.location.href = "index?route=notifications";
+                            window.location.href = "index?route=roomstable";
                         }
                         else if(data.success == "false"){
                             alert(data.message);
