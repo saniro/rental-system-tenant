@@ -11,9 +11,9 @@
 		case 'login':
 			require("view/t_login.php");
 			break;
-		case 'notifications':
-			require("view/t_notifications.php");
-			break;
+		// case 'notifications':
+		// 	require("view/t_notifications.php");
+		// 	break;
 		case 'roomstable':
 			require("view/t_roomstable.php");
 			break;

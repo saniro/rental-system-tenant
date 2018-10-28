@@ -14,7 +14,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Apartment Rental</title>
+    <title>Rental Platform</title>
     <link rel="icon" href="img/apicon.png">
 
     <!-- Bootstrap Core CSS -->
@@ -49,7 +49,7 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Monthly Payments</h1>
+                    <h1 class="page-header">Monthly Rental Payments</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -62,20 +62,20 @@
 
 
 
-                    
-                        <div class="panel-body">
+                    <!-- 
+                        <div class="panel-body"> -->
                             <!-- Nav tabs -->
-                            <ul class="nav nav-tabs">
+                            <!-- <ul class="nav nav-tabs">
                                 <li class="active"><a href="#room" data-toggle="tab">Room Rental</a>
                                 </li>
                                 <li><a href="#uti" data-toggle="tab">Utility Bills</a>
                                 </li>
-                            </ul>
+                            </ul> -->
 
                             <!-- Tab panes -->
-                            <div class="tab-content">
-                                <div class="tab-pane fade in active" id="room">
-                                    <br>
+                            <!-- <div class="tab-content">
+                                <div class="tab-pane fade in active" id="room"> -->
+                                   
                                     <table width="100%" class="table table-striped table-bordered table-hover" id="tblroommp">
                                     <thead>
                                         <tr>
@@ -99,7 +99,7 @@
                                     ?>
                                     </tbody>
                                     </table>
-                                </div>
+                                <!-- </div>
                                 <div class="tab-pane fade" id="uti">
                                     <br>
                                     <table width="100%" class="table table-striped table-bordered table-hover" id="tblutimp">
@@ -122,8 +122,8 @@
                                     </tbody>
                                     </table>
                                 </div>
-                            </div>
-                        </div>
+                            </div> -->
+                        <!-- </div> -->
                         <!-- /.panel-body -->
 
 

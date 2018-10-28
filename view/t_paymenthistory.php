@@ -14,7 +14,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Apartment Rental</title>
+    <title>Rental Platform</title>
     <link rel="icon" href="img/apicon.png">
 
     <!-- Bootstrap Core CSS -->
@@ -49,7 +49,7 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Payment History</h1>
+                    <h1 class="page-header">Rental Payment History</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -66,8 +66,8 @@
                         <div class="panel-body">
 
 
-                        <div class="panel-body">
-                            <!-- Nav tabs -->
+                       <!--  <div class="panel-body">
+                            <
                             <ul class="nav nav-tabs">
                                 <li class="active"><a href="#room" data-toggle="tab">Room Rental</a>
                                 </li>
@@ -75,10 +75,10 @@
                                 </li>
                             </ul>
 
-                            <!-- Tab panes -->
+                           
                             <div class="tab-content">
                                 <div class="tab-pane fade in active" id="room">
-                                    <br>
+                                    <br> -->
                                     <table width="100%" class="table table-striped table-bordered table-hover" id="tblroomph">
                                         <thead>
                                             <tr>
@@ -99,7 +99,7 @@
                                             </tr>
                                         </tbody>
                                     </table>
-                                </div>
+                                <!-- </div>
                                 <div class="tab-pane fade" id="uti">
                                     <br>
                                     <table width="100%" class="table table-striped table-bordered table-hover" id="tblutiph">
@@ -124,7 +124,7 @@
                                     </table>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <!-- /.panel-body -->
 
 

@@ -87,11 +87,11 @@
                     </div>
                     <!-- /input-group -->
                 </li>
-                <li>
-                    <a href="index?route=notifications"><i class="fa fa-bell-o fa-fw"></i> Notifications</a>
+                <!-- <li>
+                    <a href="index?route=notifications"><i class="fa fa-bell-o fa-fw"></i> Notifications</a> -->
                     <!-- content: notif pagkafirst open ng account na don't forget to check the terms and policies; if payment recorded by admin reflected to his account; if the house rules(?)/terms and conditions(?)/contract(?) list is updated/changed by the admin ; if may respond na sa complaint niya ; if may respond na sa change room request niya; if may respond na sa new room application niya; if may respond na sa termination request niya -->
                     <!-- possible action: mark as read (deleted ??); -->
-                </li>
+                <!-- </li> -->
                 <li>
                     <a href="index?route=roomstable"><i class="glyphicon glyphicon-home fa-fw"></i> Rooms</a>
                     <!-- content: map and actions and pop up modals per corresponding action -->

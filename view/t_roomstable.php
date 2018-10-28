@@ -14,7 +14,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Apartment Rental</title>
+    <title>Rental Platform</title>
     <link rel="icon" href="img/apicon.png">
 
     <!-- Bootstrap Core CSS -->
